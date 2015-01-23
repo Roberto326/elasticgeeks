@@ -1,0 +1,89 @@
+.qapp-vspace-5{
+  height:5px;
+}
+
+.qapp-vspace-10{
+  height:10px;
+}
+
+.qapp-wspace-5{
+  display: inline-block;
+  width:5px;
+}
+
+.qapp-wspace-10{
+  display: inline-block;
+  width:10px;
+}
+
+.qapp-light-font{
+  color:#999;
+}
+
+// To make bootstrap popover work inside ngGrid
+.qapp-cell-popover {
+  overflow:visible;
+}
+
+input.qapp-info {
+  border:none;
+  background: none;
+  width:100%;
+  color: $link-color;
+  cursor: pointer;
+  outline: 0;
+}
+input.qapp-info:hover {
+  text-decoration: underline;
+}
+
+// Just like bootstrap container
+.wide-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.qapp-info-label {
+  max-width:200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  font-size: 100%;
+  margin-right: 4px;
+  cursor:pointer;
+}
+
+.dm-slim-panel {
+  margin-bottom: 0;
+
+  .panel-heading {
+    padding: 0 4px;
+  }
+}
+
+.dm-slim-table {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .wide-container {
+    width:7500px;
+  }
+}
+@media (min-width: 992px) {
+  .wide-container {
+    width:970px;
+  }
+}
+@media (min-width: 1200px) {
+  .wide-container {
+    width:1170px;
+  }
+}
+@media (min-width: 1240px) {
+  .wide-container {
+    width:98%;
+  }
+}

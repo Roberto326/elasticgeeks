@@ -1,0 +1,137 @@
+.dm-navbar-main {
+  background: transparent;
+}
+.dm-navbar-main .navbar {
+  margin-bottom: 0;
+  font-size: 1.0em;
+  padding-bottom: 0px;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  //border-bottom: 2px solid $dm-module-home;
+}
+.dm-navbar-main .navbar .dropdown-toggle {
+  height: 50px;
+}
+
+.dm-navbar-main .navbar .navbar-nav.navbar-left {
+  margin-left:20px;
+}
+
+.dm-navbar-main .navbar .navbar-nav > li > a {
+  //color: $nav-color;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  height: 54px;
+}
+.dm-navbar-main .navbar .navbar-nav > li > a:hover {
+  //color: $nav-color;
+  //background-color: #ccc;
+}
+.dm-navbar-main .navbar .navbar-nav > li.active
+{
+  //background-color: $dm-module-home;
+}
+
+.dm-navbar-main .navbar .navbar-nav > .active > a
+{
+  //color: #ffffff;
+  //background-color: transparent;
+}
+
+.dm-navbar-main.scrolled .navbar {
+  //background-color: $nav-back-color-scrolled;
+}
+.dm-navbar-main.scrolled .navbar .navbar-nav > li > a {
+  //color: $nav-color-scrolled;
+}
+.dm-navbar-main.scrolled .navbar .navbar-nav > li > a:hover {
+  //color: $nav-color-scrolled-hover;
+  //background-color: #555;
+}
+
+.dm-user-info {
+  margin-top: -15px;
+  height: 50px;
+  width: 100px;
+  position: relative;
+  overflow: hidden;
+}
+.dm-user-info-name {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+  font-size: 0.9em;
+  width: inherit;
+}
+.dm-user-info-email {
+  position: absolute;
+  top: 30px;
+  right: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+  font-size: 0.7em;
+  width: inherit;
+}
+.dm-user-info-icon {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.dm-account {
+  height: 54px;
+  width: 80px;
+  position: relative;
+  overflow: hidden;
+}
+.dm-account-logo{
+  position: absolute;
+  top: -2px;
+  left:30px;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+.dm-account-text{
+  position: absolute;
+  top: 14px;
+  left: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9em;
+}
+
+.dm-logout {
+  height: 54px;
+  width: 50px;
+  position: relative;
+  overflow: hidden;
+}
+.dm-logout-logo{
+  position: absolute;
+  top: 0px;
+  left:20px;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+.dm-logout-text{
+  position: absolute;
+  top: 14px;
+  left: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9em;
+}

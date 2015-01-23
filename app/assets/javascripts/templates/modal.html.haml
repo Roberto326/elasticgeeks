@@ -1,0 +1,10 @@
+.modal-header
+  %h3
+    {{modalOptions.headerText}}
+.modal-body
+  %p{'ng-bind-html' => 'modalOptions.bodyText'}
+.modal-footer
+  %button.btn.btn-primary{id:'btn_modal_ok', type:'button', 'data-ng-click' => 'modalOptions.ok();'}
+    {{modalOptions.actionButtonText}}
+  %button.btn.btn-default{id:'btn_modal_cancel', type:'button', 'data-ng-click' => 'modalOptions.close()'}
+    {{modalOptions.closeButtonText}}

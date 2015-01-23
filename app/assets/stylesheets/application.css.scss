@@ -1,0 +1,27 @@
+/* Customize Bootstrap Variables Here */
+
+$well-bg: rgba(0,0,0,0.04);
+
+
+/* Import dependent stylesheets */
+
+@import "bootstrap";
+@import "bootstrap-modal";
+@import "bootstrap-select";
+@import "bootstrap-datepicker";
+@import "font-awesome";
+@import "angular-ng-grid-rails";
+@import "jquery-ui";
+
+/* 3rd Party */
+
+/* 3rd Party (from Gems) */
+@import "select2";
+@import "select2-bootstrap";
+
+/* Import Application stylesheets */
+
+@import "fonts.css.scss";
+@import "dm-overrides.css.scss";
+@import "dm.css.scss";
+@import "dm-navbar.css.scss";
