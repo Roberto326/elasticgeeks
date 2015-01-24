@@ -12,6 +12,7 @@ gem 'devise'
 
 # Html
 gem 'haml'
+gem 'uglifier'
 
 # CSS
 gem 'bootstrap-sass', '~> 3.3.3'
