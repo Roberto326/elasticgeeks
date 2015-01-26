@@ -1,63 +1,21 @@
-.dm-navbar-main
-  %nav.navbar.navbar-default.navbar-fixed-top
-    .container
-      .navbar-header
-        %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-        %a.navbar-brand{href:'#'}
-          Xxx
+%nav.navbar.navbar-default.navbar-fixed-top{role:'navigation'}
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand{href:'#'}
+        %div
+          %img{src: image_url('elastic.png')}
+        %div{style:'color:#eee'}
+          Geeks
 
-      .navbar-collapse.collapse{style:'margin-right:30px'}
-        %ul.nav.navbar-nav.navbar-left
-          %li{:class => "#{active_if('/')}"}
-            %a{:href => "/"} Home
-          %li{:class => "#{active_if('/samples')}"}
-            %a{:href => "/samples"} My Samples
-
-        %ul.nav.navbar-nav.navbar-right
-
-          -# ADMIN MENU
-          - if current_user
-            %li.dropdown
-              %a.dropdown-toggle{'data-toggle' => 'dropdown', :href => '#'}
-                .gbg-user-info
-                  .gbg-user-info-name
-                    = current_user.try(:name)
-                  .gbg-user-info-email
-                    = current_user.try(:email)
-              %ul.dropdown-menu{style:'width:170px'}
-                %li
-                  %a{:href => "/", :rel => 'nofollow' }
-                    My Account
-                -if true #current_user.admin?
-                  %li.divider
-                  %li
-                    %a{:href => "/", :rel => 'nofollow' } Something
-
-
-          -# MY ACCOUNT
-          - if current_user
-            %li{:class => "#{active_if_contains('myaccount')}"}
-              %a{:href => "/"}
-                .dm-account
-                  .dm-account-logo
-                    %i{:class => 'fa fa-user fa-lg'}
-                  .dm-account-text
-                    My Account
-
-          -# LOGIN / LOGOUT
-          %li
-            - if current_user
-              %a{:href => "#{destroy_user_session_path}", 'data-method' => 'delete', :rel => 'nofollow' }
-                .dm-logout
-                  .dm-logout-logo
-                  .dm-logout-text
-                    Logout
-            - else
-              %a{:href => "#{new_user_session_path}"}
-                .dm-logout
-                  .dm-logout-logo
-                  .dm-logout-text
-                    Login
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          %a{:href => '#enterprise'} Enterprise Applications
+        %li
+          %a{:href => '#programming'} Programming Platforms
+        %li
+          %a{:href => '#development'} Development Tools

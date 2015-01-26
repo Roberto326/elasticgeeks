@@ -1,7 +1,7 @@
 !!!
 %html{'data-ng-app' => "ngDMApp"}
   %head
-    %title XXX
+    %title Elastic Geeks
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
 
@@ -14,7 +14,12 @@
 
   %body
 
-    = render :partial => 'layouts/main_menu'
+    %header
+      = render :partial => 'layouts/main_menu'
+
+      = yield :header
+
+    = yield
 
     .modal.fade{id:'gxg-alert', role:'dialog', style:'display:none'}
       .modal-dialog
@@ -41,9 +46,9 @@
           $('#qapp-alert').modal();
         });
 
-    = yield
 
-    -#= render 'shared/main_footer'
+
+    = render 'layouts/main_footer'
     = yield :bottom
 
   = yield :below_body

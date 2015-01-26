@@ -19,9 +19,13 @@ $well-bg: rgba(0,0,0,0.04);
 @import "select2";
 @import "select2-bootstrap";
 
+/* Bootstrap Theme */
+@import "freeze";
+@import "freeze_animate";
+
 /* Import Application stylesheets */
 
-@import "fonts.css.scss";
-@import "dm-overrides.css.scss";
-@import "dm.css.scss";
-@import "dm-navbar.css.scss";
+@import "fonts";
+//@import "dm-overrides";
+//@import "dm.css";
+//@import "dm-navbar";

@@ -10,6 +10,7 @@
 //= require bootstrap-datepicker/core
 
 //= require qapp
+//= require freeze
 
 
 // This should not be needed... but
