@@ -74,6 +74,9 @@ GEM
     capistrano-rails (1.1.2)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     capistrano-stats (1.1.1)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -196,6 +199,9 @@ GEM
     tilt (1.4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uglifier (2.7.0)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.0.0)
@@ -219,6 +225,7 @@ DEPENDENCIES
   byebug
   capistrano (~> 3.1)
   capistrano-rails (~> 1.1)
+  capistrano-rvm
   coffee-rails (~> 4.1.0)
   devise
   font-awesome-rails
@@ -235,4 +242,5 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   select2-rails
   spring
+  uglifier
   web-console (~> 2.0)

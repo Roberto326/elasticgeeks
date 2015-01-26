@@ -12,6 +12,7 @@ gem 'devise'
 
 # Html
 gem 'haml'
+gem 'uglifier'
 
 # CSS
 gem 'bootstrap-sass', '~> 3.3.3'
@@ -55,5 +56,6 @@ group :development, :test do
 
   gem 'capistrano',  '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rvm'
 end
 
