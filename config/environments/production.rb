@@ -78,7 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   ## MAILER ##
-  ActionMailer::Base.smtp_settings = {
+  config.action_mailer.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
     :port           => 587,
     :authentication => 'plain',
@@ -87,8 +87,8 @@ Rails.application.configure do
     :domain         => 'elasticgeeks.com',
     :enable_starttls_auto => true
   }
-  ActionMailer::Base.default_url_options = { :host => 'elasticgeeks.com', :protocol => 'http' }
-  ActionMailer::Base.delivery_method ||= :smtp
-  ActionMailer::Base.default :from => (ma = Mail::Address.new('admin@elasticgeeks.com');ma.display_name = 'Admin';ma.format)
+  config.action_mailer.default_url_options = { :host => 'elasticgeeks.com', :protocol => 'http' }
+  config.action_mailer.delivery_method ||= :smtp
+  # config.action_mailer.default :from => (ma = Mail::Address.new('admin@elasticgeeks.com');ma.display_name = 'Admin';ma.format)
 
 end
