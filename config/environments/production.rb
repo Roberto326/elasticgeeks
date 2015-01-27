@@ -76,4 +76,19 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  ## MAILER ##
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => 587,
+    :authentication => 'plain',
+    :user_name      => 'roberto326',
+    :password       => 'jicjin5',
+    :domain         => 'elasticgeeks.com',
+    :enable_starttls_auto => true
+  }
+  ActionMailer::Base.default_url_options = { :host => 'elasticgeeks.com', :protocol => 'http' }
+  ActionMailer::Base.delivery_method ||= :smtp
+  ActionMailer::Base.default :from => (ma = Mail::Address.new('admin@elasticgeeks.com');ma.display_name = 'Admin';ma.format)
+
 end
