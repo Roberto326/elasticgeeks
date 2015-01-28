@@ -1,0 +1,49 @@
+.qapp-logo {
+  height: 30px;
+  width: 400px;
+  background-image: image_url('elastic.png')
+}
+
+/* BACKGROUND IMAGES */
+@mixin multiple-sizes-images($class_name, $height, $file_name, $extension) {
+
+  $im_500 : "#{$file_name}_503.#{$extension}";
+  $im_1000: "#{$file_name}_978.#{$extension}";
+  $im_1500: "#{$file_name}_1482.#{$extension}";
+  $im_2100: "#{$file_name}_2311.#{$extension}";
+
+  #{$class_name} {
+    height: $height;
+    background-size: cover;
+//    background-position: 50% 50%;
+    background-repeat: no-repeat;
+  }
+
+  #{$class_name}.qapp-back-image-2100 {
+    background-image: image-url($im_2100);
+
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_2100)}', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_2100)}', sizingMethod='scale')";
+  }
+  #{$class_name}.qapp-back-image-1500 {
+    background-image: image-url($im_1500);
+
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_1500)}', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_1500)}', sizingMethod='scale')";
+  }
+  #{$class_name}.qapp-back-image-1000 {
+    background-image: image-url($im_1000);
+
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_1000)}', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_1000)}', sizingMethod='scale')";
+  }
+  #{$class_name}.qapp-back-image-500 {
+    background-image: image-url($im_500);
+
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_500)}', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_500)}', sizingMethod='scale')";
+  }
+}
+
+/* Home */
+@include multiple-sizes-images('#box-image', 290px, 'bk_main', 'jpg');

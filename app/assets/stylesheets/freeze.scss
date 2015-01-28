@@ -80,7 +80,7 @@ header .navbar-default ul.navbar-nav li a:after {
   -ms-border-radius: 5em;
   -o-border-radius: 5em;
   border-radius: 5em;
-  color: #ffffff;
+  color: #000000; //#ffffff;
   -webkit-transition: all 0.25s ease-in-out;
   -moz-transition: all 0.25s ease-in-out;
   -ms-transition: all 0.25s ease-in-out;
@@ -635,8 +635,8 @@ form textarea.form-control {
     margin-top: 0px;
     margin-right: 0px;
     background: none;
-    border: 2px solid #ffffff;
-    color: #ffffff;
+    border: 2px solid #000000; //#ffffff;
+    color:  #000000; //#ffffff;
     -webkit-border-radius: 5em;
     -moz-border-radius: 5em;
     -ms-border-radius: 5em;
@@ -677,8 +677,8 @@ form textarea.form-control {
     margin-top: 11px;
     margin-right: 20px;
     background: none;
-    border: 2px solid #ffffff;
-    color: #ffffff;
+    border: 2px solid #000000; //#ffffff;
+    color: #000000; //#ffffff;
     -webkit-border-radius: 5em;
     -moz-border-radius: 5em;
     -ms-border-radius: 5em;
@@ -746,25 +746,25 @@ form textarea.form-control {
   }
 }
 header {
-  background: #66cdcc;
-  /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #66cdcc), color-stop(100%, #336799));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
-  /* IE10+ */
-  background: linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66cdcc, endColorstr=#336799, GradientType=1);
-  /* IE6-9 fallback on horizontal gradient */
+//  background: #66cdcc;
+//  /* Old browsers */
+//  background: -moz-linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
+//  /* FF3.6+ */
+//  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #66cdcc), color-stop(100%, #336799));
+//  /* Chrome,Safari4+ */
+//  background: -webkit-linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
+//  /* Chrome10+,Safari5.1+ */
+//  background: -o-linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
+//  /* Opera 11.10+ */
+//  background: -ms-linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
+//  /* IE10+ */
+//  background: linear-gradient(-45deg, #66cdcc 0%, #336799 100%);
+//  /* W3C */
+//  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66cdcc, endColorstr=#336799, GradientType=1);
+//  /* IE6-9 fallback on horizontal gradient */
 }
 header .navbar-default ul.navbar-nav li a {
-  color: #ffffff;
+  color: #000000; //#ffffff;
   background: none;
 }
 header .navbar-default ul.navbar-nav li.dropdown li a {
@@ -814,7 +814,7 @@ header .navbar-default ul.navbar-nav li a.getApp:hover {
   transition: all 0.25s ease-in-out;
 }
 header .navbar-default ul.navbar-nav li a:hover {
-  color: #ffffff;
+  color: #336799;
   -webkit-transition: all 0.25s ease-in-out;
   -moz-transition: all 0.25s ease-in-out;
   -ms-transition: all 0.25s ease-in-out;

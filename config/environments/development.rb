@@ -13,8 +13,6 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  config.action_mailer.default_url_options = { :host => 'localhost'}
-
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
@@ -40,4 +38,22 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+
+  ## MAILER ##
+  config.action_mailer.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => 587,
+    :authentication => 'plain',
+    :user_name      => 'roberto326',
+    :password       => 'aZsendgrid123',
+    :domain         => 'elasticgeeks.com',
+    :enable_starttls_auto => true
+  }
+  config.action_mailer.default_url_options = { :host => 'elasticgeeks.com', :protocol => 'http' }
+  config.action_mailer.delivery_method ||= :smtp
+  # config.action_mailer.default :from => (ma = Mail::Address.new('admin@elasticgeeks.com');ma.display_name = 'Admin';ma.format)
+  # config.action_mailer.default_url_options = { :host => 'localhost'}
+
+
 end
