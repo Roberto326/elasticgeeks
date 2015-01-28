@@ -10,7 +10,7 @@
   $im_500 : "#{$file_name}_503.#{$extension}";
   $im_1000: "#{$file_name}_978.#{$extension}";
   $im_1500: "#{$file_name}_1482.#{$extension}";
-  $im_2100: "#{$file_name}_2311.#{$extension}";
+  $im_2300: "#{$file_name}_2311.#{$extension}";
 
   #{$class_name} {
     height: $height;
@@ -19,11 +19,11 @@
     background-repeat: no-repeat;
   }
 
-  #{$class_name}.qapp-back-image-2100 {
-    background-image: image-url($im_2100);
+  #{$class_name}.qapp-back-image-2300 {
+    background-image: image-url($im_2300);
 
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_2100)}', sizingMethod='scale');
-    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_2100)}', sizingMethod='scale')";
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_2300)}', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{image-path($im_2300)}', sizingMethod='scale')";
   }
   #{$class_name}.qapp-back-image-1500 {
     background-image: image-url($im_1500);
