@@ -9,7 +9,6 @@ $well-bg: rgba(0,0,0,0.04);
 @import "bootstrap-modal";
 @import "bootstrap-select";
 @import "bootstrap-datepicker";
-@import "font-awesome";
 @import "angular-ng-grid-rails";
 @import "jquery-ui";
 
@@ -25,8 +24,10 @@ $well-bg: rgba(0,0,0,0.04);
 
 /* Import Application stylesheets */
 @import "background";
+@import "home";
 
 @import "fonts";
 //@import "dm-overrides";
 //@import "dm.css";
 //@import "dm-navbar";
+@import "font-awesome";

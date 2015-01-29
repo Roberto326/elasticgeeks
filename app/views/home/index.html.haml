@@ -1,5 +1,32 @@
 - content_for(:header) do
   .box-image{id:'box-image', style:'position:relative'}
+    %div{style:'height:160px'}
+    .container.main
+      .row
+        .col-md-10.col-md-offset-1.text-center
+          %p.title
+            Got a new big project to design but don't know where to start?
+      .row
+        .col-md-4
+          .main-item.sp-effect3
+            %a{href:'#enterprise'}
+              %i.fa.fa-university
+              %h1
+                Enterprise Applications
+
+        .col-md-4
+          .main-item.sp-effect3
+            %a{href:'#programming'}
+              %i.fa.fa-cogs
+              %h1
+                Programming Platforms
+
+        .col-md-4
+          .main-item.sp-effect3
+            %a{href:'#development'}
+              %i.fa.fa-connectdevelop
+              %h1
+                Development Tools
 
 %wrapper
   %section{id:'enterprise'}
