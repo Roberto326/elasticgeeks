@@ -13,9 +13,10 @@
 
 /* vendor (from Gems) */
 //= require select2
+//= require sugar
 
-//= require dm_app/dm_app
-//= require_tree ./dm_app/vendor
-//= require_tree ./dm_app/models
-//= require_tree ./dm_app/services
-//= require_tree ./dm_app/controllers
+//= require q_app/q_app
+//= require_tree ./q_app/vendor
+//= require_tree ./q_app/models
+//= require_tree ./q_app/services
+//= require_tree ./q_app/controllers

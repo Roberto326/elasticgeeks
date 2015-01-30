@@ -1,0 +1,18 @@
+.modal-header
+  %button.close{"ng-click" => "cancel()", type: "button"}
+    %span{"aria-hidden" => "true"} ×
+    %span.sr-only Close
+  %h4
+    %strong
+      Confirm
+.modal-body
+  .row
+    .col-md-12
+      %li{'ng-repeat' => 'message in messages track by $index'}
+        .h4
+          {{message}}
+.modal-footer
+  %button.btn.btn-primary.pull-right{:ng_click => "cancel()",type: "button"}
+    No
+  %button.btn.btn-default.pull-right{:ng_click => "ok()",:style => "margin-right:5px;"}
+    Yes

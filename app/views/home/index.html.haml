@@ -35,18 +35,19 @@
         %h1
           Enterprise Applications
         .divider
-        %p The table and info will be here
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
+        .row
+          %div{'ng-controller' => 'EAController'}
+            .row
+              .col-md-12
+                %ol.breadcrumb{style:'margin-bottom:2px'}
+                  %li{'ng-repeat' => 'parent in parents'}
+                    %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+                      {{parent.name}}
+                .well
+                  .row
+                    .col-md-4{'ng-repeat' => 'category in categories'}
+                      %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
+                        {{category.name}}
 
   %section{id:'programming'}
     .container

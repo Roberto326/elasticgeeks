@@ -1,0 +1,62 @@
+.container
+  %div{'ng-controller' => 'AdminCategoriesController', 'ng-cloak' => 'true', 'ng-init' => 'setRoot(NULL)'}
+    .row
+      .col-md-12
+        %h2
+          Categories
+    .row
+      .col-md-12
+        %ol.breadcrumb
+          %li{'ng-repeat' => 'parent in parents'}
+            %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+              {{parent.name}}
+          %button.btn.btn-info.pull-right{'ng-click' => 'edit.new()'}
+            New Category
+    .row{'ng-show' => 'edit.editing'}
+      .col-md-6
+        .panel.panel-primary
+          .panel-heading
+            {{edit.operation}}
+          .panel-body
+            %form.form-horizontal
+              .form-group
+                .col-md-2
+                  %label Name
+                .col-md-10
+                  %input.form-control{type:'text', 'ng-model' => 'edit.record.name'}
+          .panel-footer.text-right
+            %button.btn.btn-info{type:'button', 'ng-click' => 'edit.save()'}
+              Save
+            %button.btn.btn-danger{type:'button', 'ng-click' => 'edit.cancel()'}
+              Cancel
+    .row
+      .col-md-12
+        %table.table.table-bordered.table-hover
+          %tr
+            %th ID
+            %th Name
+            %th Action
+          %tr{'ng-repeat' => 'category in categories'}
+            %td
+              {{category.id}}
+            %td
+              %a{href:'#', 'ng-click' => 'edit.edit(category)'}
+                {{category.name}}
+            %td
+              %button.btn.btn-info{type:'button', 'ng-click' => 'seeChildren(category)'}
+                see children
+              %button.btn.btn-danger{type:'button', 'ng-click' => 'edit.delete(category)'}
+                delete
+  %div
+    %div{'ng-controller' => 'EAController'}
+      .row
+        .col-md-12
+          %ol.breadcrumb{style:'margin-bottom:2px'}
+            %li{'ng-repeat' => 'parent in parents'}
+              %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+                {{parent.name}}
+          .well
+            .row
+              .col-md-4{'ng-repeat' => 'category in categories'}
+                %a{href:'#', 'ng-click' => 'seeChildren(category)'}
+                  {{category.name}}
