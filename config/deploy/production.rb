@@ -8,7 +8,7 @@
 #role :web, %w{deploy@example.com}
 #role :db,  %w{deploy@example.com}
 
-set :rails_env, "production"
+set :rails_env, 'production'
 
 # Extended Server Syntax
 # ======================
@@ -16,7 +16,7 @@ set :rails_env, "production"
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server 'elasticgeeks.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
+server 'elasticgeeks.com', user: 'deploy', roles: %w{web app db}, my_property: :my_value
 
 
 # Custom SSH Options
