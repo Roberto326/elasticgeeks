@@ -83,7 +83,7 @@ Rails.application.configure do
     :port           => 587,
     :authentication => 'plain',
     :user_name      => 'roberto326',
-    :password       => 'jicjin5',
+    :password       => 'aZsendgrid123',
     :domain         => 'elasticgeeks.com',
     :enable_starttls_auto => true
   }
