@@ -1,0 +1,60 @@
+!!!
+%html{'data-ng-app' => "ngQApp"}
+  %head
+    %title Elastic Geeks
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
+
+    = stylesheet_link_tag 'application', {:media => 'all', 'data-turbolinks-track' => true}
+    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+
+    = csrf_meta_tag
+    = favicon_link_tag "favicon.ico"
+    -#= render 'shared/google_analytics' if Rails.env == 'production'
+
+  %body
+
+    %header
+      = render :partial => 'layouts/main_menu'
+
+      = yield :header
+
+    %div{style:'margin-top:160px'}
+
+    = yield
+
+    .modal.fade{id:'gxg-alert', role:'dialog', style:'display:none'}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close{'data-dismiss' => 'modal'}
+              &times;
+            %h4
+              %strong Information
+          .modal-body
+            %ul
+              - flash.each do |name, msgs|
+                - Array(msgs).each do |msg|
+                  %li
+                    .h4
+                      != msg
+          .modal-footer
+            %button.btn.btn-primary{type:'button', 'data-dismiss'=>'modal'}
+              Dismiss
+
+    - unless flash.empty?
+      :javascript
+        new Loader().when_available( function(loader) {
+          $('#qapp-alert').modal();
+        });
+
+
+
+    = render 'layouts/main_footer'
+    = yield :bottom
+
+  = yield :below_body
+
+  = javascript_include_tag 'application_background'
+  = javascript_include_tag 'application'
+  = javascript_include_tag 'angular_application'

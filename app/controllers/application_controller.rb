@@ -10,10 +10,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def layout_by_resource
-    # if devise_controller?
-    #   'dashboard'
-    # else
+    if devise_controller?
+       'admin'
+    else
       'application'
-    # end
+    end
   end
 end
