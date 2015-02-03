@@ -82,8 +82,8 @@ Rails.application.configure do
     :address        => 'smtp.sendgrid.net',
     :port           => 587,
     :authentication => 'plain',
-    :user_name      => 'roberto326',
-    :password       => 'aZsendgrid123',
+    :user_name      => 'deploy',
+    :password       => 'flex2009',
     :domain         => 'elasticgeeks.com',
     :enable_starttls_auto => true
   }
