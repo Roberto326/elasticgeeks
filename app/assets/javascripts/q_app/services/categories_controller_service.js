@@ -21,7 +21,6 @@ app.service('CategoriesControllerService', ['CategoriesService', function (Categ
       };
 
       $scope.seeChildren = function(category) {
-        console.log(category);
         $scope.setCurrentParent(category);
         $scope.loadCategories();
       };

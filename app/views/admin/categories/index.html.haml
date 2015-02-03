@@ -10,7 +10,7 @@
           %li{'ng-repeat' => 'parent in parents'}
             %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
               {{parent.name}}
-          %button.btn.btn-info.pull-right{'ng-click' => 'edit.new()'}
+          %button.btn.btn-info.pull-right{'ng-click' => 'edit.new({parent_id:current_parent.id})'}
             New Category
     .row{'ng-show' => 'edit.editing'}
       .col-md-6
