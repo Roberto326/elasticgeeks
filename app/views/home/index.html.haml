@@ -30,59 +30,118 @@
 
 %wrapper
   %section{id:'enterprise'}
-    .container
+    .container{'ng-controller' => 'EAController'}
       .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
         %h1
           Enterprise Applications
         .divider
         .row
-          %div{'ng-controller' => 'EAController'}
-            .row
-              .col-md-12
-                %ol.breadcrumb{style:'margin-bottom:2px'}
-                  %li{'ng-repeat' => 'parent in parents'}
-                    %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
-                      {{parent.name}}
-                .well
-                  .row
-                    .col-md-4{'ng-repeat' => 'category in categories'}
-                      %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
-                        {{category.name}}
+          .col-md-12
+            %ol.breadcrumb.text-left
+              %li{'ng-repeat' => 'parent in parents'}
+                %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+                  {{parent.name}}
+            %table.table.table-bordered.table-hover
+              %tr{'ng-repeat' => 'row in categoriesIn3s'}
+                %td{'ng-repeat' => 'category in row'}
+                  %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
+                    {{category.name}}
+        .row
+          .col-md-12
+            %table.table.table-bordered.table-hover{'ng-show' => 'hasItems'}
+              %tr
+                %th ID
+                %th Name
+                %th Website
+                %th Platform(s)
+                %th License(s)
+              %tr{'ng-repeat' => 'item in items'}
+                %td.text-left
+                  {{item.id}}
+                %td.text-left
+                  {{item.name}}
+                %td.text-left
+                  %a{href:"{{item.website}}", target:'_blank'}
+                    {{item.website}}
+                %td.text-left
+                  {{item.platform_names}}
+                %td.text-left
+                  {{item.license_names}}
 
   %section{id:'programming'}
-    .container
+    .container{'ng-controller' => 'PPController'}
       .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
         %h1
           Programming Platforms
         .divider
-        %p The table and info will be here
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
+        .row
+          .col-md-12
+            %ol.breadcrumb.text-left
+              %li{'ng-repeat' => 'parent in parents'}
+                %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+                  {{parent.name}}
+            %table.table.table-bordered.table-hover
+              %tr{'ng-repeat' => 'row in categoriesIn3s'}
+                %td{'ng-repeat' => 'category in row'}
+                  %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
+                    {{category.name}}
+        .row
+          .col-md-12
+            %table.table.table-bordered.table-hover{'ng-show' => 'hasItems'}
+              %tr
+                %th ID
+                %th Name
+                %th Website
+                %th Platform(s)
+                %th License(s)
+              %tr{'ng-repeat' => 'item in items'}
+                %td.text-left
+                  {{item.id}}
+                %td.text-left
+                  {{item.name}}
+                %td.text-left
+                  %a{href:"{{item.website}}", target:'_blank'}
+                    {{item.website}}
+                %td.text-left
+                  {{item.platform_names}}
+                %td.text-left
+                  {{item.license_names}}
 
   %section{id:'development'}
-    .container
+    .container{'ng-controller' => 'DTController'}
       .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
         %h1
           Development Tools
         .divider
-        %p The table and info will be here
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
-        %p space
+        .row
+          .col-md-12
+            %ol.breadcrumb.text-left
+              %li{'ng-repeat' => 'parent in parents'}
+                %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+                  {{parent.name}}
+            %table.table.table-bordered.table-hover
+              %tr{'ng-repeat' => 'row in categoriesIn3s'}
+                %td{'ng-repeat' => 'category in row'}
+                  %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
+                    {{category.name}}
+        .row
+          .col-md-12
+            %table.table.table-bordered.table-hover{'ng-show' => 'hasItems'}
+              %tr
+                %th ID
+                %th Name
+                %th Website
+                %th Platform(s)
+                %th License(s)
+              %tr{'ng-repeat' => 'item in items'}
+                %td.text-left
+                  {{item.id}}
+                %td.text-left
+                  {{item.name}}
+                %td.text-left
+                  %a{href:"{{item.website}}", target:'_blank'}
+                    {{item.website}}
+                %td.text-left
+                  {{item.platform_names}}
+                %td.text-left
+                  {{item.license_names}}

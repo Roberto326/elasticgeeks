@@ -20,6 +20,7 @@ app.service('EditService', ['ModalService', function (ModalService) {
     };
 
     this.save = function() {
+      console.log(this.record);
       var func = this.record.id ? CrudService.update : CrudService.create;
       func(this.record).then(function (result) {
         if (result.success) {

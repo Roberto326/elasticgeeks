@@ -16,11 +16,11 @@ app.service('ApiParams', [  function(){
         uri += '&offset='+offset;
       }
 
-      if (filter && !_.isEmpty(filter)) {
+      if (filter && !filter.isEmpty()) {
         uri += '&filter='+JSON.stringify(filter);
       }
 
-      if (order && !_.isEmpty(order)) {
+      if (order && !order.isEmpty()) {
         uri += '&order='+JSON.stringify(order);
       }
 
@@ -37,7 +37,7 @@ app.service('ApiParams', [  function(){
 
       uri += '&limit=1&aggregation_count=0';
 
-      if (filter && !_.isEmpty(filter)) {
+      if (filter && !filter.isEmpty()) {
         uri += '&filter='+JSON.stringify(filter);
       }
 

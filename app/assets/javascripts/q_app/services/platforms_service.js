@@ -1,14 +1,14 @@
 var app = angular.module('ngQApp.services');
 
-app.service('CategoriesService', ['$http', 'Category', 'ApiParams', 'ApiBaseService', function ($http, Category, ApiParams, ApiBaseService) {
+app.service('PlatformsService', ['$http', 'Platform', 'ApiParams', 'ApiBaseService', function ($http, Platform, ApiParams, ApiBaseService) {
 
   return  {
     getList: function (limit, offset, filter, order, context) {
-      return ApiBaseService.getList(Category, '/categories', limit, offset, filter, order, context)
+      return ApiBaseService.getList(Platform, '/platforms', limit, offset, filter, order, context)
     },
 
-    create: function (category) {
-      return $http.post( ApiParams.composeCreateURI('/categories', category), {category:category} )
+    create: function (platform) {
+      return $http.post( ApiParams.composeCreateURI('/platforms', platform), {platform:platform} )
         .then(function (success_response) {
           return ApiParams.resultCreate(success_response);
         }, function (error_response) {
@@ -16,8 +16,8 @@ app.service('CategoriesService', ['$http', 'Category', 'ApiParams', 'ApiBaseServ
         });
     },
 
-    update: function (category) {
-      return $http.put( ApiParams.composeUpdateURI('/categories', category.id), {category:category} )
+    update: function (platform) {
+      return $http.put( ApiParams.composeUpdateURI('/platforms', platform.id), {platform:platform} )
         .then(function (success_response) {
           return ApiParams.resultUpdate(success_response);
         }, function (error_response) {
@@ -26,7 +26,7 @@ app.service('CategoriesService', ['$http', 'Category', 'ApiParams', 'ApiBaseServ
     },
 
     delete: function (id) {
-      return $http.delete( ApiParams.composeDeleteURI('/categories', id) )
+      return $http.delete( ApiParams.composeDeleteURI('/platforms', id) )
         .then(function (success_response) {
           return ApiParams.resultDelete(success_response);
         }, function (error_response) {
