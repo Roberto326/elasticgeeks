@@ -1,5 +1,7 @@
 class Item < ActiveRecord::Base
 
+  serialize :fields, Hash
+
   belongs_to :category
 
   has_many :platforms, through: :platform_items
@@ -19,14 +21,10 @@ class Item < ActiveRecord::Base
   end
 
   def to_hash
-    {
-      id: self.id,
-      name: self.name,
-      category_id: self.category_id,
-      website: self.website,
+    self.attributes.merge({
       platforms: self.get_platforms,
       licenses: self.get_licenses
-    }
+    })
   end
 
 end

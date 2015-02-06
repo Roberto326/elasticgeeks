@@ -1,0 +1,70 @@
+.row
+  .col-md-11
+    %h2
+      Items
+  .col-md-1{style:'padding-top:1.8em'}
+    %button.btn.btn-info.pull-right{'ng-click' => 'edit_item.new({category_id:current_parent.id})'}
+      New Item
+.row{'ng-show' => 'edit_item.editing'}
+  .col-md-6
+    .panel.panel-primary
+      .panel-heading
+        {{edit_item.operation}}
+      .panel-body
+        %form.form-horizontal
+          .form-group
+            .col-md-2
+              %label Name
+            .col-md-10
+              %input.form-control{type:'text', 'ng-model' => 'edit_item.record.name'}
+          .form-group
+            .col-md-2
+              %label Website
+            .col-md-10
+              %input.form-control{type:'text', 'ng-model' => 'edit_item.record.website'}
+          .form-group
+            .col-md-2
+              %label Platform(s)
+            .col-md-10
+              %span.form-control{'ui-select2' => 'select2OptionsPlatform', 'ng-model' => 'edit_item.record.platforms'}
+          .form-group
+            .col-md-2
+              %label License(s)
+            .col-md-10
+              %span.form-control{'ui-select2' => 'select2OptionsLicense', 'ng-model' => 'edit_item.record.licenses'}
+      .panel-footer.text-right
+        %button.btn.btn-info{type:'button', 'ng-click' => 'edit_item.save()'}
+          Save
+        %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_item.cancel()'}
+          Cancel
+.row
+  .col-md-12
+    %table.table.table-bordered.table-hover
+      %tr
+        %th ID
+        %th Name
+        %th Website
+        %th Platform(s)
+        %th License(s)
+        %th{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+          {{field.camelize(true)}}
+        %th Action
+      %tr{'ng-repeat' => 'item in items'}
+        %td
+          {{item.id}}
+        %td
+          %a{href:'#', 'ng-click' => 'edit_item.edit(item)'}
+            {{item.name}}
+        %td
+          {{item.website}}
+        %td
+          {{item.platform_names}}
+        %td
+          {{item.license_names}}
+        %td{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+          {{item.fields[field]}}
+        %td
+          %button.btn.btn-info{type:'button', 'ng-click' => 'edit_item.edit(item)'}
+            edit
+          %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_item.delete(item)'}
+            delete

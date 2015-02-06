@@ -6,7 +6,19 @@ app.controller('AdminCategoriesController',
 
     CategoriesControllerService.setup($scope);
 
+    // Category
     $scope.edit_category = EditService.init($scope, CategoriesService);
+    $scope.edit_category.fields_def_text = '';
+    $scope.edit_category.fields_def_ok   = true;
+
+    $scope.edit_category.beforeEdit = function(record){
+      $scope.edit_category.fields_def_text = record.fieldsToText();
+    };
+
+    $scope.edit_category.registerCallback('beforeEdit', $scope.edit_category, 'beforeEdit');
+
+
+    // Item
     $scope.edit_item     = EditService.init($scope, ItemsService);
 
     $scope.select2OptionsPlatform = {

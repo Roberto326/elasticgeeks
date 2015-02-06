@@ -10,6 +10,7 @@ app.factory('Item', [
       this.website        = json.website      || null;
       this.platforms      = json.platforms    || null;
       this.licenses       = json.licenses     || null;
+      this.fields         = json.fields       || null;
 
       // For display in the grid
       this.platform_names = this.platforms.map(function(item) {return item.text}).join(', ');

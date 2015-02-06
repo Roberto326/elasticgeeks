@@ -8,25 +8,30 @@ app.service('EditService', ['ModalService', function (ModalService) {
     this.record = {};
     this.editing = false;
     this.operation = 'edit';
+    this.callbacks = new dpm.Callbacks();
 
     this.edit = function(record) {
       this.record = angular.copy(record);
+      this.callbacks.fireCallback('beforeEdit',this.record);
       this.editing = true;
     };
 
     this.new = function(record) {
       this.record = record ? angular.copy(record) : {};
+      this.callbacks.fireCallback('beforeNew', this.record);
       this.editing = true;
     };
 
     this.save = function() {
-      console.log(this.record);
+      this.callbacks.fireCallback('beforeSave', this.record);
       var func = this.record.id ? CrudService.update : CrudService.create;
       func(this.record).then(function (result) {
         if (result.success) {
+          this.callbacks.fireCallback('afterSave', this.record, true);
           that.editing = false;
           parentScope.reload();
         } else {
+          this.callbacks.fireCallback('afterSave', this.record, false);
           alert(result.statusText);
         }
       });
@@ -48,6 +53,10 @@ app.service('EditService', ['ModalService', function (ModalService) {
           });
         }
       });
+    };
+
+    this.registerCallback = function(trigger, instance, method) {
+      this.callbacks.addCallback(trigger, instance, method);
     };
 
   };

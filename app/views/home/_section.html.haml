@@ -1,0 +1,42 @@
+%section{id:"#{div_id}"}
+  .container{'ng-controller' => "#{ng_controller}", 'ng-init' => "init(#{category.to_json})"}
+    .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
+      %h1
+        = category.name.titleize
+      .divider
+      .row
+        .col-md-12
+          %ol.breadcrumb.text-left
+            %li{'ng-repeat' => 'parent in parents'}
+              %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+                {{parent.name}}
+          %table.table.table-bordered.table-hover
+            %tr{'ng-repeat' => 'row in categoriesIn3s'}
+              %td{'ng-repeat' => 'category in row'}
+                %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
+                  {{category.name}}
+      .row
+        .col-md-12
+          %table.table.table-bordered.table-hover{'ng-show' => 'hasItems'}
+            %tr
+              %th ID
+              %th Name
+              %th Website
+              %th Platform(s)
+              %th License(s)
+              %th{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+                {{field.camelize(true)}}
+            %tr{'ng-repeat' => 'item in items'}
+              %td.text-left
+                {{item.id}}
+              %td.text-left
+                {{item.name}}
+              %td.text-left
+                %a{href:"{{item.website}}", target:'_blank'}
+                  {{item.website}}
+              %td.text-left
+                {{item.platform_names}}
+              %td.text-left
+                {{item.license_names}}
+              %td.text-left{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+                {{item.fields[field]}}

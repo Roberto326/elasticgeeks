@@ -5,6 +5,8 @@ app.controller('EAController', ['$scope', 'CategoriesControllerService',
 
     CategoriesControllerService.setup($scope);
 
-    $scope.setRoot($scope.EA);
+    $scope.init = function(category) {
+      $scope.setRoot(category);
+    };
 
 }]);

@@ -1,0 +1,63 @@
+.row
+  .col-md-12
+    %h2
+      Selected Category
+.row
+  .col-md-12
+    %ol.breadcrumb
+      %li{'ng-repeat' => 'parent in parents'}
+        %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+          {{parent.name}}
+.row
+  .col-md-11
+    %h2
+      Child Categories
+  .col-md-1{style:'padding-top:1.8em'}
+    %button.btn.btn-info.pull-right{'ng-click' => 'edit_category.new({parent_id:current_parent.id})'}
+      New Category
+.row{'ng-show' => 'edit_category.editing'}
+  .col-md-6
+    .panel.panel-primary
+      .panel-heading
+        {{edit_category.operation}}
+      .panel-body
+        %form.form-horizontal
+          .form-group
+            .col-md-2
+              %label Name
+            .col-md-10
+              %input.form-control{type:'text', 'ng-model' => 'edit_category.record.name'}
+          .form-group
+            .col-md-2
+              %label Custom Fields
+            .col-md-10
+              %textarea.form-control{rows:'3', 'ng-model' => 'edit_category.fields_def_text', 'ng-change' => 'edit_category.fields_def_ok = edit_category.record.textToFields(edit_category.fields_def_text)'}
+              %span.label.label-success{'ng-show' => 'edit_category.fields_def_ok'}
+                Valid
+              %span.label.label-danger{'ng-hide' => 'edit_category.fields_def_ok'}
+                Invalid
+      .panel-footer.text-right
+        %button.btn.btn-info{type:'button', 'ng-click' => 'edit_category.save()', 'ng-disabled' => '!edit_category.fields_def_ok'}
+          Save
+        %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_category.cancel()'}
+          Cancel
+.row
+  .col-md-12
+    %table.table.table-bordered.table-hover
+      %tr
+        %th ID
+        %th Name
+        %th Action
+      %tr{'ng-repeat' => 'category in categories'}
+        %td
+          {{category.id}}
+        %td
+          %a{href:'#', 'ng-click' => 'edit_category.edit(category)'}
+            {{category.name}}
+        %td
+          %button.btn.btn-primary{type:'button', 'ng-click' => 'seeChildren(category)'}
+            select
+          %button.btn.btn-info{type:'button', 'ng-click' => 'edit_category.edit(category)'}
+            edit
+          %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_category.delete(category)'}
+            delete

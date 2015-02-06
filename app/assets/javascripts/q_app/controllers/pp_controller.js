@@ -5,6 +5,8 @@ app.controller('PPController', ['$scope', 'CategoriesControllerService',
 
     CategoriesControllerService.setup($scope);
 
-    $scope.setRoot($scope.PP);
+    $scope.init = function(category) {
+      $scope.setRoot(category);
+    };
 
 }]);

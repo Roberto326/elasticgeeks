@@ -5,6 +5,8 @@ app.controller('DTController', ['$scope', 'CategoriesControllerService',
 
     CategoriesControllerService.setup($scope);
 
-    $scope.setRoot($scope.DT);
+    $scope.init = function(category) {
+      $scope.setRoot(category);
+    };
 
 }]);
