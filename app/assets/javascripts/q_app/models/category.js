@@ -13,7 +13,7 @@ app.factory('Category', [
     Category.prototype = {
 
       fieldsToText: function() {
-        JSON.stringify(this.fields_def);
+        return JSON.stringify(this.fields_def);
       },
 
       textToFields: function(fields_def_text) {

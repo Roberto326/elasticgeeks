@@ -19,7 +19,6 @@
         .col-md-12
           %table.table.table-bordered.table-hover{'ng-show' => 'hasItems'}
             %tr
-              %th ID
               %th Name
               %th Website
               %th Platform(s)
@@ -27,8 +26,6 @@
               %th{'ng-repeat' => '(field,type) in current_parent.fields_def'}
                 {{field.camelize(true)}}
             %tr{'ng-repeat' => 'item in items'}
-              %td.text-left
-                {{item.id}}
               %td.text-left
                 {{item.name}}
               %td.text-left

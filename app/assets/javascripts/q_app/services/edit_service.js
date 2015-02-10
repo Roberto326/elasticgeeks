@@ -27,11 +27,11 @@ app.service('EditService', ['ModalService', function (ModalService) {
       var func = this.record.id ? CrudService.update : CrudService.create;
       func(this.record).then(function (result) {
         if (result.success) {
-          this.callbacks.fireCallback('afterSave', this.record, true);
+          that.callbacks.fireCallback('afterSave', this.record, true);
           that.editing = false;
           parentScope.reload();
         } else {
-          this.callbacks.fireCallback('afterSave', this.record, false);
+          that.callbacks.fireCallback('afterSave', this.record, false);
           alert(result.statusText);
         }
       });

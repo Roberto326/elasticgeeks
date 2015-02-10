@@ -32,6 +32,13 @@
               %label License(s)
             .col-md-10
               %span.form-control{'ui-select2' => 'select2OptionsLicense', 'ng-model' => 'edit_item.record.licenses'}
+          .form-group{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+            .col-md-2
+              %label
+                {{field.camelize(true)}}
+            .col-md-10
+              %input.form-control{type:'text', 'ng-model' => 'edit_item.record.fields[field]'}
+
       .panel-footer.text-right
         %button.btn.btn-info{type:'button', 'ng-click' => 'edit_item.save()'}
           Save
