@@ -8,7 +8,7 @@
       %a.navbar-brand{href:'/'}
         %div
           %img{src: image_url('elastic.png')}
-        %div{style:'color:#111'}
+        %div.text{style:'color:#111'}
           Geeks
 
     .navbar-collapse.collapse
@@ -19,6 +19,8 @@
           %a{:href => '/#programming'} Programming Platforms
         %li
           %a{:href => '/#development'} Development Tools
+        %li
+          %a{:href => '/#about'} Geeks?
         - if current_user
           %li.dropdown
             %a.dropdown-toggle{href:'#', role:'button', 'data-toggle' => 'dropdown', 'aria-expanded' => 'false'}

@@ -10,14 +10,14 @@
             %li{'ng-repeat' => 'parent in parents'}
               %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
                 {{parent.name}}
-          %table.table.table-bordered.table-hover
+          %table.table.table-bordered.table-hover.qapp-category
             %tr{'ng-repeat' => 'row in categoriesIn3s'}
               %td{'ng-repeat' => 'category in row'}
                 %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
                   {{category.name}}
       .row
         .col-md-12
-          %table.table.table-bordered.table-hover{'ng-show' => 'hasItems'}
+          %table.table.table-bordered.table-hover.qapp-item{'ng-show' => 'hasItems'}
             %tr
               %th Name
               %th Website
@@ -37,3 +37,6 @@
                 {{item.license_names}}
               %td.text-left{'ng-repeat' => '(field,type) in current_parent.fields_def'}
                 {{item.fields[field]}}
+    -#%h1 Trends
+    -#-#%script(src="about:blank")
+    -#%script(src="//www.google.com/trends/embed.js?hl=en-US&q=html5,jquery&tz&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=330")
