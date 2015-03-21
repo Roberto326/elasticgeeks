@@ -1,25 +1,49 @@
 .container
   .row
-    .col-md-10.col-md-offset-1.text-center
-      %p.title
+    .col-md-12
+      %h1
         = @category.name
+        - parent_category = @category.parent
+        - while parent_category
+          .small
+            = ' / '
+            %a{href:"/index/#{parent_category.name.underscore}"}
+              = parent_category.name
+          - parent_category = parent_category.parent
   .row
     .col-md-12
       = markdown(@category.description)
   .row
     .col-md-12
-      Sub Categories
+      %h2
+        Sub Categories
   .row
     .col-md-12
-      - @category.sub_categories.each do |category|
-        .row
-          %a{href:"#{@category.name.underscore}/#{category.name.underscore}"}
-            = category.name
+      .row
+        - @category.sub_categories.each do |category|
+          .col-md-3
+            %a{href:"#{@category.name.underscore}/#{category.name.underscore}"}
+              = category.name
   .row
     .col-md-12
-      Items
+      %h2
+        Items
   .row
     .col-md-12
-      - @category.items.each do |item|
-        .row
-          = item.name
+      %table.table.table-bordered.table-hover.qapp-item
+        %tr
+          %th Name
+          %th Website
+          %th Platform(s)
+          %th License(s)
+        - @category.items.each do |item|
+          %tr
+            %td.text-left
+              = item.name
+            %td.text-left
+              %a{href:"#{item.website}", target:'_blank'}
+                = item.website
+            %td.text-left
+              = item.platforms.map &:name
+            %td.text-left
+              = item.licenses.map &:name

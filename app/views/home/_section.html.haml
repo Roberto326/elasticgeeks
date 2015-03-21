@@ -6,7 +6,6 @@
       .divider
       .row
         .col-md-12
-          {{current_parent.name}}
           %ol.breadcrumb.text-left
             %li{'ng-repeat' => 'parent in parents'}
               %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}

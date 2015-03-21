@@ -13,6 +13,11 @@
     -#= render 'shared/google_analytics' if Rails.env == 'production'
 
   %body
+    %header
+      = render :partial => 'layouts/simple_menu'
+      = yield :header
+
+    %div{style:'margin-top:100px'}
 
     = yield
 
