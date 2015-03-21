@@ -22,6 +22,7 @@ module ApplicationHelper
   end
 
   def markdown(text)
+    return '' unless text.present?
     render_options = {
         # will remove from the output HTML tags inputted by user
         filter_html:     false,
