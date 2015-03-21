@@ -7,6 +7,7 @@ app.factory('Category', [
     function Category(json) {
       this.id              = json.id           || null;
       this.name            = json.name         || null;
+      this.description     = json.description  || null;
       this.fields_def      = json.fields_def   || null;
     };
 

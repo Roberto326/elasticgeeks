@@ -6,10 +6,14 @@
       .divider
       .row
         .col-md-12
+          {{current_parent.name}}
           %ol.breadcrumb.text-left
             %li{'ng-repeat' => 'parent in parents'}
               %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
                 {{parent.name}}
+            %div{style:'border-top:1px solid #333333'}
+              %q-markdown{data:'current_parent.description'}
+
           %table.table.table-bordered.table-hover.qapp-category
             %tr{'ng-repeat' => 'row in categoriesIn3s'}
               %td{'ng-repeat' => 'category in row'}

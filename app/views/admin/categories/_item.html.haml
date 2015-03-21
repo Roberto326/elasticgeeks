@@ -6,7 +6,7 @@
     %button.btn.btn-info.pull-right{'ng-click' => 'edit_item.new({category_id:current_parent.id})'}
       New Item
 .row{'ng-show' => 'edit_item.editing'}
-  .col-md-6
+  .col-md-10
     .panel.panel-primary
       .panel-heading
         {{edit_item.operation}}
@@ -17,6 +17,11 @@
               %label Name
             .col-md-10
               %input.form-control{type:'text', 'ng-model' => 'edit_item.record.name'}
+          .form-group
+            .col-md-2
+              %label Description (Markdown)
+            .col-md-10
+              %textarea.form-control{rows:6, 'ng-model' => 'edit_item.record.description'}
           .form-group
             .col-md-2
               %label Website

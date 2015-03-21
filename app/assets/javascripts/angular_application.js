@@ -14,9 +14,11 @@
 /* vendor (from Gems) */
 //= require select2
 //= require sugar
+//= require showdown
 
 //= require q_app/q_app
 //= require_tree ./q_app/vendor
 //= require_tree ./q_app/models
+//= require_tree ./q_app/directives
 //= require_tree ./q_app/services
 //= require_tree ./q_app/controllers

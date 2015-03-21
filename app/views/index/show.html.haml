@@ -1,0 +1,25 @@
+.container
+  .row
+    .col-md-10.col-md-offset-1.text-center
+      %p.title
+        = @category.name
+  .row
+    .col-md-12
+      = markdown(@category.description)
+  .row
+    .col-md-12
+      Sub Categories
+  .row
+    .col-md-12
+      - @category.sub_categories.each do |category|
+        .row
+          %a{href:"#{@category.name.underscore}/#{category.name.underscore}"}
+            = category.name
+  .row
+    .col-md-12
+      Items
+  .row
+    .col-md-12
+      - @category.items.each do |item|
+        .row
+          = item.name

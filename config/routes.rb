@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :platforms
   resources :licenses
 
+  get 'index/:p1(/:p2(/:p3))' => 'index#show'
+
   namespace :admin do
     resources :categories
   end

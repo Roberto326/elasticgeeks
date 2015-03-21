@@ -7,6 +7,7 @@ app.factory('Item', [
     function Item(json) {
       this.id             = json.id           || null;
       this.name           = json.name         || null;
+      this.description    = json.description  || null;
       this.website        = json.website      || null;
       this.platforms      = json.platforms    || null;
       this.licenses       = json.licenses     || null;

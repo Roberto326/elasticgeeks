@@ -35,9 +35,11 @@ gem 'angular-rails-templates'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'select2-rails'
 gem 'jbuilder', '~> 2.0'
+gem 'showdown-rails'
 
 # Misc
 gem 'grb'
+gem 'redcarpet'
 
 # Documentation
 group :doc do

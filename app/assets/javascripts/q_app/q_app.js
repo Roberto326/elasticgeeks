@@ -17,7 +17,7 @@ var dependencies = [
 
 // declare modules
 angular.module('ngQApp.models',      []);
-angular.module('ngQApp.directives',  ['ngQApp.models']);
+angular.module('ngQApp.directives',  []);
 angular.module('ngQApp.services',    ['ngQApp.models']);
 angular.module('ngQApp.controllers', ['ngQApp.models','ngQApp.services']);
 

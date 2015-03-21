@@ -165,6 +165,7 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    redcarpet (3.2.2)
     responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
     sass (3.4.10)
@@ -179,6 +180,9 @@ GEM
       rdoc (~> 4.0)
     select2-rails (3.5.9.2)
       thor (~> 0.14)
+    showdown-rails (0.0.4)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
     slop (3.6.0)
     spring (1.2.0)
     sprockets (2.12.3)
@@ -240,9 +244,11 @@ DEPENDENCIES
   ng-rails-csrf
   rails (= 4.2.0)
   rails_config
+  redcarpet
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   select2-rails
+  showdown-rails
   spring
   sugar-rails
   uglifier
