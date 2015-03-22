@@ -16,6 +16,7 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
       $scope.categoriesIn3s = [];
       $scope.items = [];
       $scope.hasItems = false;
+      $scope.showDescription = false;
 
       $scope.setRoot = function(category) {
         $scope.parents = [];
@@ -26,6 +27,10 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
       $scope.seeChildren = function(category) {
         $scope.setCurrentParent(category);
         $scope.reload();
+      };
+
+      $scope.toggleShowDescription = function() {
+        $scope.showDescription = !$scope.showDescription;
       };
 
       $scope.loadCategories = function() {
@@ -78,7 +83,8 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
         if (idx > -1) {
           $scope.parents = $scope.parents.slice(0, idx+1);
         } else {
-          $scope.parents.push({id: category.id, name:category.name});
+          //$scope.parents.push({id: category.id, name:category.name});
+          $scope.parents.push(category);
         }
       };
     }

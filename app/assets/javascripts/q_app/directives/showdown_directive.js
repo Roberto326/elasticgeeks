@@ -9,13 +9,13 @@ app.directive('qMarkdown', [function () {
             if (value) {
                 var htmlText = converter.makeHtml(value);
                 element.html(htmlText);
+            } else {
+                element.html('');
             }
         }
 
-        window.console.log(attrs);
-        scope.$watch(attrs.qMarkdown, function(value) {
-            window.console.log('aa');
-            updateData(value);
+        scope.$parent.$watch(attrs.data, function(value) {
+            updateData(scope.data);
         });
 
         updateData(scope.data);

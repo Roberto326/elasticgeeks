@@ -10,8 +10,13 @@
             %li{'ng-repeat' => 'parent in parents'}
               %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
                 {{parent.name}}
-            %div{style:'border-top:1px solid #333333'}
-              %q-markdown{data:'current_parent.description'}
+            %div{}
+              %a{href:'', 'ng-click' => 'toggleShowDescription()', 'ng-hide' => 'showDescription'}
+                %i.fa.fa-toggle-down
+              %a{href:'', 'ng-click' => 'toggleShowDescription()', 'ng-show' => 'showDescription'}
+                %i.fa.fa-toggle-up
+              %div{'ng-show' => 'showDescription'}
+                %q-markdown{data:'current_parent.description'}
 
           %table.table.table-bordered.table-hover.qapp-category
             %tr{'ng-repeat' => 'row in categoriesIn3s'}
