@@ -16,6 +16,7 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
       $scope.categoriesIn3s = [];
       $scope.items = [];
       $scope.hasItems = false;
+      $scope.hasDescription = false;
       $scope.showDescription = false;
 
       $scope.setRoot = function(category) {
@@ -72,13 +73,14 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
 
       $scope.setCurrentParent = function(category) {
 
-        category = category == null ? {id:null, name:'Root'} : category;
+          category = category == null ? {id:null, name:'Root'} : category;
 
-        $scope.current_parent = category;
+          $scope.current_parent = category;
+          $scope.hasDescription = category.description != '' && category.description != null;
 
-        var idx = $scope.parents.findIndex(function(item) {
-          return item.id == category.id;
-        });
+          var idx = $scope.parents.findIndex(function(item) {
+            return item.id == category.id;
+          });
 
         if (idx > -1) {
           $scope.parents = $scope.parents.slice(0, idx+1);

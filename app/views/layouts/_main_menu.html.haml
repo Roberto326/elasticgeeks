@@ -14,17 +14,17 @@
     .navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
         %li
-          %a{:href => '/#enterprise'} Enterprise Applications
+          %a{:href => '/#enterprise', rel:'nofollow'} Enterprise Applications
         %li
-          %a{:href => '/#programming'} Programming Platforms
+          %a{:href => '/#programming', rel:'nofollow'} Programming Platforms
         %li
-          %a{:href => '/#development'} Development Tools
+          %a{:href => '/#development', rel:'nofollow'} Development Tools
         %li
-          %a{:href => '/#about'} Geeks?
+          %a{:href => '/#about', rel:'nofollow'} About
         - if current_user
           %li.dropdown
-            %a.dropdown-toggle{href:'#', role:'button', 'data-toggle' => 'dropdown', 'aria-expanded' => 'false'}
-              = current_user.email
+            %a.dropdown-toggle{href:'#', rel:'nofollow', role:'button', 'data-toggle' => 'dropdown', 'aria-expanded' => 'false'}
+              = current_user.email.downcase
               %span.caret
             %ul.dropdown-menu{role:'menu'}
               - if current_user.admin?
@@ -36,12 +36,12 @@
                     Items
                 %li.divider
               %li
-                %a{:href => "#{destroy_user_session_path}", 'data-method' => 'delete', :rel => 'nofollow' }
+                %a{:href => "#{destroy_user_session_path}", rel:'nofollow', 'data-method' => 'delete', :rel => 'nofollow' }
                   Logout
 
         - if current_user
           %li.dropdown
-            %a.dropdown-toggle{'data-toggle' => 'dropdown', :href => '#'}
+            %a.dropdown-toggle{'data-toggle' => 'dropdown', :href => '#', rel:'nofollow'}
               = current_user.try(:name)
             %ul.dropdown-menu{style:'width:170px'}
               %li
@@ -52,5 +52,5 @@
                   Logout
         - else
           %li
-            %a{:href => "#{new_user_session_path}"}
+            %a{:href => "#{new_user_session_path}", rel:'nofollow'}
               Login

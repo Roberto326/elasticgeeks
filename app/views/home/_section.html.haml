@@ -1,21 +1,21 @@
 %section{id:"#{div_id}"}
   .container{'ng-controller' => "#{ng_controller}", 'ng-init' => "init(#{category.to_json})"}
     .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
-      %h1
-        = category.name.titleize
-      .divider
+      -#%h1
+      -#  = category.name.titleize
+      -#.divider
       .row
         .col-md-12
           %ol.breadcrumb.text-left
             %li{'ng-repeat' => 'parent in parents'}
               %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
                 {{parent.name}}
-            %div{}
-              %a{href:'', 'ng-click' => 'toggleShowDescription()', 'ng-hide' => 'showDescription'}
-                %i.fa.fa-toggle-down
-              %a{href:'', 'ng-click' => 'toggleShowDescription()', 'ng-show' => 'showDescription'}
-                %i.fa.fa-toggle-up
-              %div{'ng-show' => 'showDescription'}
+            %div{'ng-show' => 'hasDescription'}
+              %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-hide' => 'showDescription'}
+                %i.fa.fa-arrow-circle-right.fa-2x.swing
+              %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-show' => 'showDescription'}
+                %i.fa.fa-arrow-circle-down.fa-2x.swing
+              %div.sp-effect3.animated.fadeInDown{'ng-show' => 'showDescription', style:'opacity:0'}
                 %q-markdown{data:'current_parent.description'}
 
           %table.table.table-bordered.table-hover.qapp-category
@@ -37,7 +37,7 @@
               %td.text-left
                 {{item.name}}
               %td.text-left
-                %a{href:"{{item.website}}", target:'_blank'}
+                %a{href:"{{item.website}}", rel:'nofollow', target:'_blank'}
                   {{item.website}}
               %td.text-left
                 {{item.platform_names}}
