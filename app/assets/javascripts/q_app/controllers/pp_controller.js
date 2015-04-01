@@ -1,12 +1,12 @@
 var app = angular.module('ngQApp.controllers');
 
-app.controller('PPController', ['$scope', 'CategoriesControllerService',
-  function($scope, CategoriesControllerService) {
+app.controller('PPController', ['$scope', 'Category', 'CategoriesControllerService',
+  function($scope, Category, CategoriesControllerService) {
 
     CategoriesControllerService.setup($scope);
 
     $scope.init = function(category) {
-      $scope.setRoot(category);
+      $scope.setRoot(new Category(category));
     };
 
 }]);

@@ -1,20 +1,20 @@
 %section{id:"#{div_id}"}
   .container{'ng-controller' => "#{ng_controller}", 'ng-init' => "init(#{category.to_json})"}
     .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
-      -#%h1
-      -#  = category.name.titleize
-      -#.divider
       .row
         .col-md-12
           %ol.breadcrumb.text-left
             %li{'ng-repeat' => 'parent in parents'}
               %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
                 {{parent.name}}
-            %div{'ng-show' => 'hasDescription'}
-              %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-hide' => 'showDescription'}
-                %i.fa.fa-arrow-circle-right.fa-2x.swing
-              %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-show' => 'showDescription'}
-                %i.fa.fa-arrow-circle-down.fa-2x.swing
+            %div
+              %span{'ng-show' => 'hasDescription'}
+                %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-hide' => 'showDescription'}
+                  %i.fa.fa-arrow-circle-right.fa-2x.swing
+                %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-show' => 'showDescription'}
+                  %i.fa.fa-arrow-circle-down.fa-2x.swing
+              %a{'ng-href' => '/index/{{current_parent.action()}}', style:'margin-left:0.5em', target:'_blank'}
+                %i.fa.fa-file-word-o.fa-2x.swing
               %div.sp-effect3.animated.fadeInDown{'ng-show' => 'showDescription', style:'opacity:0'}
                 %q-markdown{data:'current_parent.description'}
 
@@ -28,7 +28,7 @@
           %table.table.table-bordered.table-hover.qapp-item{'ng-show' => 'hasItems'}
             %tr
               %th Name
-              %th Website
+              %th Actions
               %th Platform(s)
               %th License(s)
               %th{'ng-repeat' => '(field,type) in current_parent.fields_def'}
@@ -37,8 +37,8 @@
               %td.text-left
                 {{item.name}}
               %td.text-left
-                %a{href:"{{item.website}}", rel:'nofollow', target:'_blank'}
-                  {{item.website}}
+                %a{href:"{{item.website}}", rel:'nofollow', target:'_blank', 'ng-show' => 'item.website'}
+                  %i.fa.fa-external-link
               %td.text-left
                 {{item.platform_names}}
               %td.text-left

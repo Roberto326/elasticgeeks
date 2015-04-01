@@ -12,10 +12,7 @@ app.controller('AdminCategoriesController',
     $scope.edit_category.fields_def_ok   = true;
 
     $scope.edit_category.beforeEdit = function(record){
-      console.log('before edit');
       $scope.edit_category.fields_def_text = record.fieldsToText();
-      console.log(record);
-      console.log($scope.edit_category.fields_def_text);
     };
 
     $scope.edit_category.registerCallback('beforeEdit', $scope.edit_category, 'beforeEdit');

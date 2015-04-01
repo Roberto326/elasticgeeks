@@ -46,6 +46,9 @@ class PlatformsController < ApplicationController
 
   def post_params
     params[:platform].permit!
+    pp = params[:platform].permit!
+    pp.delete(:text)
+    pp
   end
 
 end

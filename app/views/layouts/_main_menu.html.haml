@@ -6,17 +6,21 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand{href:'/'}
-        %div
-          %img{src: image_url('elastic.png')}
-        %div.text{style:'color:#111'}
-          Geeks
+        .qapp-main-logo
+          -#%img{src: image_url('elastic.png')}
+          %i.fa.fa-power-off.fa-rotate-90{style:'margin-right: -0.1em'}
+          %span
+            lastic
+          %i.fa.fa-undo.fa-rotate-180{style:'margin-right: -0.2em'}
+          %span
+            eeks
 
     .navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
         %li
           %a{:href => '/#enterprise', rel:'nofollow'} Enterprise Applications
         %li
-          %a{:href => '/#programming', rel:'nofollow'} Programming Platforms
+          %a{:href => '/#programming', rel:'nofollow'} Programming Components
         %li
           %a{:href => '/#development', rel:'nofollow'} Development Tools
         %li
@@ -29,11 +33,14 @@
             %ul.dropdown-menu{role:'menu'}
               - if current_user.admin?
                 %li
-                  %a{:href => "admin/categories"}
+                  %a{:href => "/admin/categories", rel:'nofollow'}
                     Categories
                 %li
-                  %a{:href => "admin/items"}
-                    Items
+                  %a{:href => "/admin/platforms", rel:'nofollow'}
+                    Platforms
+                %li
+                  %a{:href => "/admin/licenses", rel:'nofollow'}
+                    Licenses
                 %li.divider
               %li
                 %a{:href => "#{destroy_user_session_path}", rel:'nofollow', 'data-method' => 'delete', :rel => 'nofollow' }

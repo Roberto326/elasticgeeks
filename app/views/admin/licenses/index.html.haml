@@ -1,0 +1,44 @@
+.container
+  %div{'ng-controller' => 'AdminLicensesController', 'ng-cloak' => 'true'}
+    .row
+      .col-md-11
+        %h2
+          Licenses
+      .col-md-1{style:'padding-top:1.8em'}
+        %button.btn.btn-info.pull-right{'ng-click' => 'edit_license.new()'}
+          New license
+    .row{'ng-show' => 'edit_license.editing'}
+      .col-md-10
+        .panel.panel-primary
+          .panel-heading
+            {{edit_license.operation}}
+          .panel-body
+            %form.form-horizontal
+              .form-group
+                .col-md-2
+                  %label Name
+                .col-md-10
+                  %input.form-control{type:'text', 'ng-model' => 'edit_license.record.name'}
+          .panel-footer.text-right
+            %button.btn.btn-info{type:'button', 'ng-click' => 'edit_license.save()'}
+              Save
+            %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_license.cancel()'}
+              Cancel
+    .row
+      .col-md-12
+        %table.table.table-bordered.table-hover
+          %tr
+            %th ID
+            %th Name
+            %th Action
+          %tr{'ng-repeat' => 'license in Licenses'}
+            %td
+              {{license.id}}
+            %td
+              %a{href:'#', 'ng-click' => 'edit_license.edit(license)'}
+                {{license.name}}
+            %td
+              %button.btn.btn-info{type:'button', 'ng-click' => 'edit_license.edit(license)'}
+                edit
+              %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_license.delete(license)'}
+                delete

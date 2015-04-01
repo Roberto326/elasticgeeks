@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :categories
+    resources :licenses
+    resources :platforms
   end
 
 

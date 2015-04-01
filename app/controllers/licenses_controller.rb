@@ -45,7 +45,9 @@ class LicensesController < ApplicationController
   end
 
   def post_params
-    params[:license].permit!
+    pp = params[:license].permit!
+    pp.delete(:text)
+    pp
   end
 
 end

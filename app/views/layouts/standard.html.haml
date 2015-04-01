@@ -1,9 +1,11 @@
 !!!
 %html{'data-ng-app' => "ngQApp"}
   %head
-    %title Elastic Geeks
+    %title
+      = @title || 'Elastic Geeks - Software Technologies Explained'
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
+    %meta{name:"description", content:"#{@meta_description || 'Elastic Geeks is the organized source of information for Software Developers, IT Professionals and Decision Makers.'}"}
 
     = stylesheet_link_tag 'application', {:media => 'all', 'data-turbolinks-track' => true}
     / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
@@ -17,9 +19,10 @@
       = render :partial => 'layouts/simple_menu'
       = yield :header
 
-    %div{style:'margin-top:100px'}
+    %div{style:'margin-top:50px'}
 
-    = yield
+    %article
+      = yield
 
     = yield :bottom
 

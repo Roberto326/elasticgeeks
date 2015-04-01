@@ -14,6 +14,8 @@ class IndexController < ApplicationController
 
     if @category
 
+      @title = @category.name
+
     else
       raise ActionController::RoutingError.new('Not Found')
     end

@@ -1,11 +1,12 @@
 !!!
 %html{'data-ng-app' => "ngQApp"}
   %head
-    %title ElasticGeeks - Software Technologies Explained
+    %title
+      = @title || 'Elastic Geeks - Software Technologies Explained'
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
     %meta{name:"google-site-verification", content:"XidJhJt4ERy_3Ud1CKGFsONZplGbbARbymePJ4mBDpw"}
-    %meta{name:"description", content:"ElasticGeeks help Developers and Managers learn about software technologies and how to apply them in creating successful products."}
+    %meta{name:"description", content:"#{@meta_description || 'Elastic Geeks is the organized source of information for Software Developers, IT Professionals and Decision Makers.'}"}
 
     = stylesheet_link_tag 'application', {:media => 'all', 'data-turbolinks-track' => true}
     / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries

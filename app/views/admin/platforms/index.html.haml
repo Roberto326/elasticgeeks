@@ -1,0 +1,44 @@
+.container
+  %div{'ng-controller' => 'AdminPlatformsController', 'ng-cloak' => 'true'}
+    .row
+      .col-md-11
+        %h2
+          Platforms
+      .col-md-1{style:'padding-top:1.8em'}
+        %button.btn.btn-info.pull-right{'ng-click' => 'edit_platform.new()'}
+          New platform
+    .row{'ng-show' => 'edit_platform.editing'}
+      .col-md-10
+        .panel.panel-primary
+          .panel-heading
+            {{edit_platform.operation}}
+          .panel-body
+            %form.form-horizontal
+              .form-group
+                .col-md-2
+                  %label Name
+                .col-md-10
+                  %input.form-control{type:'text', 'ng-model' => 'edit_platform.record.name'}
+          .panel-footer.text-right
+            %button.btn.btn-info{type:'button', 'ng-click' => 'edit_platform.save()'}
+              Save
+            %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_platform.cancel()'}
+              Cancel
+    .row
+      .col-md-12
+        %table.table.table-bordered.table-hover
+          %tr
+            %th ID
+            %th Name
+            %th Action
+          %tr{'ng-repeat' => 'platform in platforms'}
+            %td
+              {{platform.id}}
+            %td
+              %a{href:'#', 'ng-click' => 'edit_platform.edit(platform)'}
+                {{platform.name}}
+            %td
+              %button.btn.btn-info{type:'button', 'ng-click' => 'edit_platform.edit(platform)'}
+                edit
+              %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_platform.delete(platform)'}
+                delete

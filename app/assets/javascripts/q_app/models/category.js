@@ -25,6 +25,10 @@ app.factory('Category', [
         } catch (e) {
           return false;
         }
+      },
+
+      action: function() {
+          return this.name.replace(/\s+/g, '-').toLowerCase();
       }
     };
 

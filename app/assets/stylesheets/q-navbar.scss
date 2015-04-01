@@ -1,7 +1,25 @@
+.qapp-main-logo {
+  font-size: 2em;
+  color:#333333;
+}
+
+header .navbar-default {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+header .navbar-default ul.navbar-nav {
+  padding-top: 1em;
+}
+
 header .navbar-default ul.navbar-nav li a {
   font-size:1.4em;
 }
 
-header .navbar-default.scrolled .navbar-brand .text {
-  display:none;
+header .navbar-default.scrolled .navbar-brand{
+
+  .qapp-main-logo {
+    color:#ffffff;
+  }
+
 }
