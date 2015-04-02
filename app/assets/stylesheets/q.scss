@@ -20,15 +20,12 @@
   color:#999;
 }
 
-table.qapp-category {
-  tbody {
-    tr {
-      td{
-        .btn-link{
-          font-size:1.6em;
-        }
-      }
-    }
+.qapp-category {
+  .col-md-4,.col-sm-4{
+//    background-color: #fcfcfc;
+  }
+  .btn-link{
+    font-size:2em;
   }
 }
 

@@ -18,11 +18,17 @@
               %div.sp-effect3.animated.fadeInDown{'ng-show' => 'showDescription', style:'opacity:0'}
                 %q-markdown{data:'current_parent.description'}
 
-          %table.table.table-bordered.table-hover.qapp-category
-            %tr{'ng-repeat' => 'row in categoriesIn3s'}
-              %td{'ng-repeat' => 'category in row'}
-                %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
-                  {{category.name}}
+          -#%table.table.table-bordered.table-hover.qapp-category
+          -#  %tr{'ng-repeat' => 'row in categoriesIn3s'}
+          -#    %td{'ng-repeat' => 'category in row'}
+          -#      %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
+          -#        {{category.name}}
+
+      .row.qapp-category
+        .col-sm-4{'ng-repeat' => 'category in categories'}
+          %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
+            {{category.name}}
+
       .row
         .col-md-12
           %table.table.table-bordered.table-hover.qapp-item{'ng-show' => 'hasItems'}
