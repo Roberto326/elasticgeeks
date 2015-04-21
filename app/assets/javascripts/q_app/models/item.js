@@ -12,6 +12,8 @@ app.factory('Item', [
       this.platforms      = json.platforms    || null;
       this.licenses       = json.licenses     || null;
       this.fields         = json.fields       || null;
+      this.wiki_id        = json.wiki_id      || null;
+      this.wiki_name      = json.wiki_name    || null;
 
       // For display in the grid
       this.platform_names = this.platforms.map(function(item) {return item.text}).join(', ');

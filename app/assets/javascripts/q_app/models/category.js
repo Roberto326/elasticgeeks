@@ -8,6 +8,8 @@ app.factory('Category', [
       this.id              = json.id           || null;
       this.name            = json.name         || null;
       this.description     = json.description  || null;
+      this.wiki_id         = json.wiki_id      || null;
+      this.wiki_name       = json.wiki_name    || null;
       this.fields_def      = json.fields_def   || null;
     };
 

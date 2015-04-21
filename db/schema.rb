@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321060315) do
+ActiveRecord::Schema.define(version: 20150420225941) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255,   null: false
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20150321060315) do
     t.datetime "updated_at"
     t.text     "fields_def",  limit: 65535
     t.text     "description", limit: 65535
+    t.string   "wiki_id",     limit: 255
+    t.string   "wiki_name",   limit: 255
   end
 
   create_table "items", force: :cascade do |t|
@@ -30,6 +32,9 @@ ActiveRecord::Schema.define(version: 20150321060315) do
     t.string   "website",     limit: 255,   null: false
     t.text     "fields",      limit: 65535
     t.text     "description", limit: 65535
+    t.string   "wiki_id",     limit: 255
+    t.string   "wiki_name",   limit: 255
+    t.string   "wiki_logo",   limit: 255
   end
 
   create_table "license_items", force: :cascade do |t|
@@ -55,6 +60,29 @@ ActiveRecord::Schema.define(version: 20150321060315) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "trend_details", force: :cascade do |t|
+    t.integer "category_id", limit: 4, null: false
+    t.integer "item_id",     limit: 4, null: false
+    t.date    "date",                  null: false
+    t.integer "score",       limit: 4
+  end
+
+  add_index "trend_details", ["category_id", "item_id", "date"], name: "index_trend_details_on_category_id_and_item_id_and_date", using: :btree
+  add_index "trend_details", ["category_id"], name: "index_trend_details_on_category_id", using: :btree
+  add_index "trend_details", ["date"], name: "index_trend_details_on_date", using: :btree
+  add_index "trend_details", ["item_id"], name: "index_trend_details_on_item_id", using: :btree
+
+  create_table "trends", force: :cascade do |t|
+    t.integer "category_id",        limit: 4,     null: false
+    t.integer "item_id",            limit: 4,     null: false
+    t.integer "current_popularity", limit: 4
+    t.text    "trend",              limit: 65535
+  end
+
+  add_index "trends", ["category_id", "item_id"], name: "index_trends_on_category_id_and_item_id", using: :btree
+  add_index "trends", ["category_id"], name: "index_trends_on_category_id", using: :btree
+  add_index "trends", ["item_id"], name: "index_trends_on_item_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",    null: false

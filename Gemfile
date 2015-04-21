@@ -6,6 +6,7 @@ gem 'rails_config'
 
 # Database
 gem 'mysql2'
+gem 'activerecord-import'
 
 # Authentication
 gem 'devise'
@@ -48,6 +49,8 @@ end
 
 
 group :development, :test do
+  gem 'pry-byebug'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
