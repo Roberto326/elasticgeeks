@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420225941) do
+ActiveRecord::Schema.define(version: 20150421181039) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255,   null: false
@@ -74,15 +74,18 @@ ActiveRecord::Schema.define(version: 20150420225941) do
   add_index "trend_details", ["item_id"], name: "index_trend_details_on_item_id", using: :btree
 
   create_table "trends", force: :cascade do |t|
-    t.integer "category_id",        limit: 4,     null: false
-    t.integer "item_id",            limit: 4,     null: false
-    t.integer "current_popularity", limit: 4
-    t.text    "trend",              limit: 65535
+    t.integer "category_id", limit: 4, null: false
+    t.integer "item_id",     limit: 4, null: false
+    t.integer "trend",       limit: 4
+    t.integer "score",       limit: 4
+    t.integer "rank",        limit: 4
+    t.integer "rank_year",   limit: 4
   end
 
   add_index "trends", ["category_id", "item_id"], name: "index_trends_on_category_id_and_item_id", using: :btree
   add_index "trends", ["category_id"], name: "index_trends_on_category_id", using: :btree
   add_index "trends", ["item_id"], name: "index_trends_on_item_id", using: :btree
+  add_index "trends", ["rank"], name: "index_trends_on_rank", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",    null: false
