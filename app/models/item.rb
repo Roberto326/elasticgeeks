@@ -10,7 +10,9 @@ class Item < ActiveRecord::Base
   has_many :licenses, through: :license_items
   has_many :license_items
 
-  default_scope -> {order('name ASC')}
+  has_many :trends
+
+  # default_scope -> {order('name ASC')}
 
   def get_platforms
     platforms.map { |r| {id: r.id, text: r.name} }

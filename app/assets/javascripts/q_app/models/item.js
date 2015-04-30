@@ -14,6 +14,9 @@ app.factory('Item', [
       this.fields         = json.fields       || null;
       this.wiki_id        = json.wiki_id      || null;
       this.wiki_name      = json.wiki_name    || null;
+      this.trend          = json.trend        || null;
+      this.rank           = json.rank         || null;
+      this.rank_year      = json.rank_year    || null;
 
       // For display in the grid
       this.platform_names = this.platforms.map(function(item) {return item.text}).join(', ');

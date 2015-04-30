@@ -2,7 +2,7 @@ var app = angular.module('ngQApp.services');
 
 app.service('WikidataService', ['$http', function ($http) {
 
-  var search_url = "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&callback=JSON_CALLBACK&language=en&search=";
+  var search_url = "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&callback=JSON_CALLBACK&language=en&limit=20&search=";
 
   return  {
     searchEntities: function (search) {

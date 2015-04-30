@@ -4,9 +4,16 @@ class ItemsController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :update, :destroy]
 
   def index
-    query = Item.where(category_id: params[:context].presence)
+    query = Item.where(category_id: params[:context].presence).includes(:trends).order('trends.rank asc')
     count = query.count
-    results = query.map{|r| r.to_hash}
+    results = query.map do |r|
+      t = r.trends.first
+      if t
+        r.to_hash.merge(trend: t.trend, rank: t.rank, rank_year: t.rank_year)
+      else
+        r.to_hash.merge(trend: 0, rank: 0, rank_year: 0)
+      end
+    end
     render json: {count:count, results:results}
   end
 

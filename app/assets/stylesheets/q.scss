@@ -109,6 +109,37 @@ input.qapp-info:hover {
   cursor:pointer;
 }
 
+td.trend {
+  color:#aaaaaa;
+  i.fa:before {
+    content: "-";
+  }
+}
+td.trend-2 {
+  color:darken($brand-success,20%);
+  i.fa:before {
+    content: "\f102";
+  }
+}
+td.trend-1 {
+  color:$brand-success;
+  i.fa:before {
+    content: "\f106";
+  }
+}
+td.trend1 {
+  color:$brand-warning;
+  i.fa:before {
+    content: "\f107";
+  }
+}
+td.trend2 {
+  color:darken($brand-warning,20%);
+  i.fa:before {
+    content: "\f103";
+  }
+}
+
 .dm-slim-panel {
   margin-bottom: 0;
 

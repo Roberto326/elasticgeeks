@@ -45,34 +45,39 @@ class ProcessTrends
       end
       first = false
 
-      date  = Date.parse(row['Date'])
+      begin
+        date  = Date.parse(row['Date'])
 
-      #Loop Through Items
-      col_index.each do |key, value|
+        #Loop Through Items
+        col_index.each do |key, value|
 
-        item    = value[:item]
-        item_id = item.to_param
-        score   = row[key].to_i
+          item    = value[:item]
+          item_id = item.to_param
+          score   = row[key].to_i
 
-        # Monthly Scores
-        if hsh_sum[item_id].blank?
-          hsh_sum[item_id] = score
-        else
-          hsh_sum[item_id] += score
+          # Monthly Scores
+          if hsh_sum[item_id].blank?
+            hsh_sum[item_id] = score
+          else
+            hsh_sum[item_id] += score
+          end
+
+          # Total Scores
+          if total_sum[item_id].blank?
+            total_sum[item_id] = hsh_sum[item_id]
+          else
+            total_sum[item_id] += hsh_sum[item_id]
+          end
         end
 
-        # Total Scores
-        if total_sum[item_id].blank?
-          total_sum[item_id] = hsh_sum[item_id]
-        else
-          total_sum[item_id] += hsh_sum[item_id]
+        # Last day of the month
+        if date.month != date.next_day.month
+          save_sum(trend_details, category.to_param, date, hsh_sum)
+          hsh_sum = {}
         end
-      end
 
-      # Last day of the month
-      if date.month != date.next_day.month
-        save_sum(trend_details, category.to_param, date, hsh_sum)
-        hsh_sum = {}
+      rescue => e
+        puts e.message
       end
     end
 
@@ -121,13 +126,13 @@ class ProcessTrends
       if diff == 0
         trend = 0
       elsif diff == 1
-        trend = 1
-      elsif diff > 1
-        trend = 2
-      elsif diff == -1
         trend = -1
-      elsif diff < -1
+      elsif diff > 1
         trend = -2
+      elsif diff == -1
+        trend = 1
+      elsif diff < -1
+        trend = 2
       end
 
       data_item[:trend] = trend
@@ -155,7 +160,7 @@ class ProcessTrends
   def self.download_trends(category)
     # url = "http://www.wikipediatrends.com/csv.php?query[]=Apache+Tomcat&query[]=IIS"
     url = 'http://www.wikipediatrends.com/csv.php?'
-    url += category.items.map{|item| "query[]=#{URI::encode(item.name)}"}.join('&')
+    url += category.items.map{|item| "query[]=#{CGI::encode(item.wiki_name || item.name)}"}.join('&')
     content = open(url).read
     content
   end
