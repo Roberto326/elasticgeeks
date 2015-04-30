@@ -14,7 +14,17 @@ class IndexController < ApplicationController
 
     if @category
 
-      @title = @category.name
+      query = Item.where(category_id: @category.id).includes(:trends).order('trends.rank asc')
+      @items = query.map do |r|
+        t = r.trends.first
+        if t
+          r.to_hash.merge!(trend: t.trend, rank: t.rank, rank_year: t.rank_year).with_indifferent_access
+        else
+          r.to_hash.merge!(trend: 0, rank: 0, rank_year: 0).with_indifferent_access
+        end
+      end
+
+      puts @items
 
     else
       raise ActionController::RoutingError.new('Not Found')

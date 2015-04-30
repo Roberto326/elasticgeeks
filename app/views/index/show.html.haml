@@ -25,18 +25,31 @@
     %table.table.table-bordered.table-hover.qapp-item
       %tr
         %th Name
-        %th Links
+        %th{style:'width:2em'}
+          Rank
+        %th{style:'width:2em'}
+          Trend
+        %th{style:'width:2em'}
+          Actions
         %th Platform(s)
         %th License(s)
-      - @category.items.each do |item|
+      - @items.each do |item|
         %tr
           %td.text-left
-            = item.name
+            = item[:name]
           %td.text-left
-            - if item.website.present?
-              %a{href:"#{item.website}", target:'_blank'}
+            = item[:rank]
+
+          %td.trend{class:"trend#{item[:trend]}", style:'position:relative'}
+            %i.fa.fa-2x
+            %div{style:'position:absolute; bottom:0px; right:0px; width:30%; height:30%;font-size:60%; text-align:center; vertical-align:bottom; opacity:0.7;'}
+              = item[:trend]
+
+          %td.text-left
+            - if item[:website].present?
+              %a{href:"#{item[:website]}", target:'_blank'}
                 %i.fa.fa-external-link
           %td.text-left
-            = item.platforms.map &:name
+            = item[:platforms].map{|p| p[:name]} if item[:platforms].present?
           %td.text-left
-            = item.licenses.map &:name
+            = item[:licenses].map{|p| p[:name]} if item[:licenses].present?

@@ -66,6 +66,7 @@
           %tr
             %th &nbsp;
             %th Term
+            %th Aliases
             %th Description
           %tr{'ng-repeat' => 'wiki in wiki_results'}
             %td
@@ -79,6 +80,8 @@
               {{wiki.label}}
               %a{'ng-href' => '{{wiki.url}}', target:'_blank'}
                 %i.fa.fa-external-link
+            %td
+              {{wiki.aliases}}
             %td
               {{wiki.description}}
 

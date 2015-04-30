@@ -9,9 +9,9 @@ class ItemsController < ApplicationController
     results = query.map do |r|
       t = r.trends.first
       if t
-        r.to_hash.merge(trend: t.trend, rank: t.rank, rank_year: t.rank_year)
+        r.to_hash.merge!(trend: t.trend, rank: t.rank, rank_year: t.rank_year)
       else
-        r.to_hash.merge(trend: 0, rank: 0, rank_year: 0)
+        r.to_hash.merge!(trend: 0, rank: 0, rank_year: 0)
       end
     end
     render json: {count:count, results:results}
@@ -60,6 +60,9 @@ class ItemsController < ApplicationController
     @licenses  = result.delete('licenses').map{|r| r['id']}
     result.delete('platform_names')
     result.delete('license_names')
+    result.delete('trend')
+    result.delete('rank')
+    result.delete('rank_year')
 
     result
   end

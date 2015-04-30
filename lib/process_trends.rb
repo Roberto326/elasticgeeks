@@ -141,7 +141,6 @@ class ProcessTrends
     #Save
     trends = []
     data.each do |data_item|
-      puts data_item
       trends << Trend.new(category_id:category_id, item_id:data_item[:item_id], trend:data_item[:trend], score:data_item[:score], rank:data_item[:rank_now], rank_year:data_item[:rank_year])
     end
 
@@ -158,11 +157,37 @@ class ProcessTrends
   end
 
   def self.download_trends(category)
+    # Get Aliases
+    aliases = download_entity_names(category)
+
     # url = "http://www.wikipediatrends.com/csv.php?query[]=Apache+Tomcat&query[]=IIS"
     url = 'http://www.wikipediatrends.com/csv.php?'
-    url += category.items.map{|item| "query[]=#{CGI::encode(item.wiki_name || item.name)}"}.join('&')
+
+    url += category.items.map do |item|
+      search = aliases[item.wiki_id]
+      search = item.wiki_name || item.name unless search
+      "query[]=#{CGI::escape(search)}"
+    end.join('&')
+
     content = open(url).read
     content
+  end
+
+  def self.download_entity_names(category)
+    # url = https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases&ids=Q251
+    url = 'http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en&props=aliases&ids='
+
+    aliases={}
+    ids = category.items.map{|item| item.wiki_id}.compact
+
+    if (ids.present?)
+      url += ids.join('%7C')
+      content = open(url).read
+      hsh = JSON.parse(content)
+
+      hsh['entities'].each {|k,v| aliases[k] = v['aliases']['en'][0]['value'] if v['aliases']}
+    end
+    aliases
   end
 
 end
