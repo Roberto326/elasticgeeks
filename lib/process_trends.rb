@@ -10,6 +10,7 @@ class ProcessTrends
 
       trends_for_parent(category.to_param)
     end
+
   end
 
   def self.trends_for_category(category)
@@ -35,7 +36,13 @@ class ProcessTrends
           next if index == 0 # Skip DATE column
           c = c.strip
 
-          item = Item.where(category_id:category.to_param, name:c).first
+          item = Item.where(category_id:category.to_param, wiki_name:c).first
+          unless item
+            puts "****"
+            puts "ITEM NOT FOUND - WHEN MATCHING WITH DOWNLOADED RESULTS"
+            puts c
+            puts "****"
+          end
           col_index[c] = {index:index, item:item}
 
           # Erase previous results
@@ -156,6 +163,48 @@ class ProcessTrends
     end
   end
 
+
+  def self.download_entity_names(category)
+    # url = https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases&ids=Q251
+    url = 'http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en&props=aliases&ids='
+
+    aliases = {}.with_indifferent_access
+    category.items.each do |item|
+      aliases[item.id] = {wiki_id:item.wiki_id, wiki_name:item.wiki_name || item.name}
+    end
+
+    if (aliases.present?)
+      url    += aliases.map{|k,v| v[:wiki_id]}.compact.join('%7C')
+      content = open(url).read
+      hsh     = JSON.parse(content)
+
+      if hsh['entities'].present?
+        hsh['entities'].each do |k,v|
+          if v['aliases']
+
+            # Find matching wiki_id
+            aliases.each do |item_id,data|
+
+              if data[:wiki_id] == k
+                data[:wiki_name] = v['aliases']['en'][0]['value']
+                next
+              end
+            end
+
+          end
+        end
+      end
+
+    end
+
+    # Update Wiki Names
+    category.items.each do |item|
+      item.update_attribute(:wiki_name, aliases[item.id][:wiki_name] )
+    end
+
+    aliases.with_indifferent_access
+  end
+
   def self.download_trends(category)
     # Get Aliases
     aliases = download_entity_names(category)
@@ -164,8 +213,9 @@ class ProcessTrends
     url = 'http://www.wikipediatrends.com/csv.php?'
 
     url += category.items.map do |item|
-      search = aliases[item.wiki_id]
-      search = item.wiki_name || item.name unless search
+
+      search = aliases[item.id][:wiki_name]
+
       "query[]=#{CGI::escape(search)}"
     end.join('&')
 
@@ -173,21 +223,5 @@ class ProcessTrends
     content
   end
 
-  def self.download_entity_names(category)
-    # url = https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases&ids=Q251
-    url = 'http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en&props=aliases&ids='
-
-    aliases={}
-    ids = category.items.map{|item| item.wiki_id}.compact
-
-    if (ids.present?)
-      url += ids.join('%7C')
-      content = open(url).read
-      hsh = JSON.parse(content)
-
-      hsh['entities'].each {|k,v| aliases[k] = v['aliases']['en'][0]['value'] if v['aliases']}
-    end
-    aliases
-  end
 
 end
