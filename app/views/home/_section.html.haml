@@ -1,5 +1,5 @@
 %section{id:"#{div_id}"}
-  .container{'ng-controller' => "#{ng_controller}", 'ng-init' => "init(#{category.to_json})"}
+  .container{'ng-controller' => "#{ng_controller}", 'ng-init' => "init(#{category.to_json},'#{div_id}')"}
     .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
       .row
         .col-md-12
@@ -10,28 +10,27 @@
             %div
               %span{'ng-show' => 'hasDescription'}
                 %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-hide' => 'showDescription'}
-                  %i.fa.fa-arrow-circle-right.fa-2x.swing
+                  %i.fa.fa-plus-circle.fa-2x.swing
                 %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-show' => 'showDescription'}
-                  %i.fa.fa-arrow-circle-down.fa-2x.swing
+                  %i.fa.fa-minus-circle.fa-2x.swing
               %a{'ng-href' => '/index/{{current_parent.action()}}', style:'margin-left:0.5em', target:'_blank'}
-                %i.fa.fa-file-word-o.fa-2x.swing
-              %div.sp-effect3.animated.fadeInDown{'ng-show' => 'showDescription', style:'opacity:0'}
+                %i.fa.fa-folder-open.fa-2x.swing
+              %div{'ng-show' => 'showDescription'}
                 %q-markdown{data:'current_parent.description'}
 
-          -#%table.table.table-bordered.table-hover.qapp-category
-          -#  %tr{'ng-repeat' => 'row in categoriesIn3s'}
-          -#    %td{'ng-repeat' => 'category in row'}
-          -#      %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
-          -#        {{category.name}}
-
-      .row.qapp-category
+      .row.qapp-category{'ng-show' => 'hasCategories'}
         .col-sm-4{'ng-repeat' => 'category in categories'}
           %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
             {{category.name}}
 
-      .row
-        .col-md-12
-          %table.table.table-bordered.table-hover.qapp-item{'ng-show' => 'hasItems'}
+      .row{'ng-show' => 'hasItems'}
+        .col-md-12.text-left
+          %button.btn-link{'ng-click' => 'setShowChart(false)'}
+            %i.fa.fa-tasks.fa-2x
+          %button.btn-link{'ng-click' => 'setShowChart(true)'}
+            %i.fa.fa-line-chart.fa-2x
+
+          %table.table.table-bordered.table-hover.qapp-item{'ng-show' => '!showChart'}
             %tr
               %th
                 Name
@@ -67,6 +66,10 @@
                 {{item.license_names}}
               %td.text-left{'ng-repeat' => '(field,type) in current_parent.fields_def'}
                 {{item.fields[field]}}
+
+          %div{id:"#{div_id}_chart",'ng-show' => 'showChart', style:'height:500px'}
+            Loading
+
     -#%h1 Trends
     -#-#%script(src="about:blank")
     -#%script(src="//www.google.com/trends/embed.js?hl=en-US&q=html5,jquery&tz&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=330")

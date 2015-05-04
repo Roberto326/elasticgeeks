@@ -12,6 +12,8 @@
 //= require qapp
 //= require freeze
 
+//= require jsapi
+//= require chartkick
 
 // This should not be needed... but
 $('.dropdown-toggle').dropdown();

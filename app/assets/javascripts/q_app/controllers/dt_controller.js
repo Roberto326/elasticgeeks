@@ -5,8 +5,11 @@ app.controller('DTController', ['$scope', 'Category', 'CategoriesControllerServi
 
     CategoriesControllerService.setup($scope);
 
-    $scope.init = function(category) {
+    $scope.init = function(category, div_id) {
       $scope.setRoot(new Category(category));
+      console.log($scope.div_id);
+      $scope.div_id = div_id;
+      console.log($scope.div_id);
     };
 
 }]);

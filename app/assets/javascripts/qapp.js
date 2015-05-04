@@ -52,6 +52,32 @@ QAPP = {
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
         results = regex.exec(location.search);
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  },
+
+  loadInPlace: function(placeholder, url, wait) {
+    if (typeof wait === 'undefined') wait = 10;
+
+    if (wait >= 0) {
+      $(placeholder).empty();
+      $(placeholder).append('<div class="waiting"></div>');
+    } else if (wait < 0) {
+      wait = 0;
+    }
+
+    setTimeout(function() {
+
+      $.ajax({
+        url:url,
+        method: 'GET',
+        success: function(data) {
+          if (data) {
+            $(placeholder).empty();
+            $(placeholder).append(data);
+          }
+        }
+      });
+
+    }, wait);
   }
 
 };

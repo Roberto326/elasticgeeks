@@ -3,7 +3,11 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  resources :categories
+  resources :categories do
+    member do
+      get 'show_popularity'
+    end
+  end
   resources :items
   resources :platforms
   resources :licenses

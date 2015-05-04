@@ -41,6 +41,7 @@ gem 'showdown-rails'
 # Misc
 gem 'grb'
 gem 'redcarpet'
+gem 'chartkick'
 
 # Documentation
 group :doc do

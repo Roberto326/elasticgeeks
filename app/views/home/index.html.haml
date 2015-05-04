@@ -7,21 +7,21 @@
           %p.title
             New Project? Start here:
       .row
-        .col-md-4
-          .main-item.sp-effect3
-            %a{href:'#enterprise'}
-              %i.fa.fa-university
-              .subtitle
-                Enterprise Applications
-
-        .col-md-4
+        -#.col-md-4
+        -#  .main-item.sp-effect3
+        -#    %a{href:'#enterprise'}
+        -#      %i.fa.fa-university
+        -#      .subtitle
+        -#        Enterprise Applications
+        -#
+        .col-md-6
           .main-item.sp-effect3
             %a{href:'#programming'}
               %i.fa.fa-cogs
               .subtitle
                 Programming Components
 
-        .col-md-4
+        .col-md-6
           .main-item.sp-effect3
             %a{href:'#development'}
               %i.fa.fa-connectdevelop
@@ -29,7 +29,7 @@
                 Development Tools
 
 %wrapper
-  = render partial:'home/section', locals: {div_id:'enterprise', ng_controller:'EAController', category:Category.find(1)}
+  -#= render partial:'home/section', locals: {div_id:'enterprise', ng_controller:'EAController', category:Category.find(1)}
   = render partial:'home/section', locals: {div_id:'programming',ng_controller:'PPController', category:Category.find(2)}
   = render partial:'home/section', locals: {div_id:'development',ng_controller:'DTController', category:Category.find(3)}
 

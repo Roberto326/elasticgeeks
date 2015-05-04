@@ -12,8 +12,13 @@
 
     = csrf_meta_tag
     = favicon_link_tag "favicon.ico"
-    -#= render 'shared/google_analytics' if Rails.env == 'production'
 
+    = javascript_include_tag 'application_background'
+    = javascript_include_tag 'application'
+    = javascript_include_tag 'angular_application'
+    = javascript_include_tag "//www.google.com/jsapi", "chartkick"
+
+    -#= render 'shared/google_analytics' if Rails.env == 'production'
   %body
     %header
       = render :partial => 'layouts/simple_menu'
@@ -27,7 +32,3 @@
     = yield :bottom
 
   = yield :below_body
-
-  = javascript_include_tag 'application_background'
-  = javascript_include_tag 'application'
-  = javascript_include_tag 'angular_application'

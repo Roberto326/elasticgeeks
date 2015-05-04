@@ -11,6 +11,7 @@ class Item < ActiveRecord::Base
   has_many :license_items
 
   has_many :trends
+  has_many :trend_details
 
   # default_scope -> {order('name ASC')}
 
