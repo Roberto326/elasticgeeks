@@ -4,18 +4,34 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :categories do
+    collection do
+      get 'index_all'
+    end
     member do
       get 'show_popularity'
     end
   end
-  resources :items
+  resources :items do
+    collection do
+      get 'index_all'
+    end
+  end
   resources :platforms
   resources :licenses
 
   get 'index/:p1(/:p2(/:p3))' => 'index#show'
 
   namespace :admin do
-    resources :categories
+    resources :categories do
+      collection do
+        get 'all'
+      end
+    end
+    resources :items do
+      collection do
+        get 'all'
+      end
+    end
     resources :licenses
     resources :platforms
   end

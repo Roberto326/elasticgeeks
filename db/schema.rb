@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501141321) do
+ActiveRecord::Schema.define(version: 20150505122302) do
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name",        limit: 255,   null: false
+    t.string   "name",        limit: 255,                   null: false
     t.integer  "parent_id",   limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -22,19 +22,21 @@ ActiveRecord::Schema.define(version: 20150501141321) do
     t.text     "description", limit: 65535
     t.string   "wiki_id",     limit: 255
     t.string   "wiki_name",   limit: 255
+    t.boolean  "disabled",    limit: 1,     default: false
   end
 
   create_table "items", force: :cascade do |t|
-    t.string   "name",        limit: 255,   null: false
+    t.string   "name",        limit: 255,                   null: false
     t.integer  "category_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "website",     limit: 255,   null: false
+    t.string   "website",     limit: 255,                   null: false
     t.text     "fields",      limit: 65535
     t.text     "description", limit: 65535
     t.string   "wiki_id",     limit: 255
     t.string   "wiki_name",   limit: 255
     t.string   "wiki_logo",   limit: 255
+    t.boolean  "disabled",    limit: 1,     default: false
   end
 
   add_index "items", ["wiki_id"], name: "index_items_on_wiki_id", using: :btree

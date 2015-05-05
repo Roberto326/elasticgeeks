@@ -17,6 +17,20 @@ class ItemsController < ApplicationController
     render json: {count:count, results:results}
   end
 
+  def index_all
+    query = Item.joins(:platforms, :licenses, :category).includes(:platforms, :licenses, :category).order('categories.name asc, items.name asc')
+    count = query.count
+    results = query.map do |r|
+      c = r.category
+      next if c.disabled
+      if c
+        r.to_hash.merge!(category_name:c.name)
+      else
+        r.to_hash
+      end
+    end
+    render json: {count:count, results:results}
+  end
   def show
     render json: {success:true, record:@item}
   end
@@ -56,13 +70,18 @@ class ItemsController < ApplicationController
   def post_params
     result = params[:item].permit!
 
-    @platforms = result.delete('platforms').map{|r| r['id']}
-    @licenses  = result.delete('licenses').map{|r| r['id']}
+    pls = result.delete('platforms')
+    @platforms = pls.map{|r| r['id']} if pls
+
+    lls = result.delete('licenses')
+    @licenses = lls.map{|r| r['id']} if lls
+
     result.delete('platform_names')
     result.delete('license_names')
     result.delete('trend')
     result.delete('rank')
     result.delete('rank_year')
+    result.delete('category_name')
 
     result
   end

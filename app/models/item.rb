@@ -14,6 +14,8 @@ class Item < ActiveRecord::Base
   has_many :trend_details
 
   # default_scope -> {order('name ASC')}
+  default_scope -> {where(disabled:false)}
+
 
   def get_platforms
     platforms.map { |r| {id: r.id, text: r.name} }

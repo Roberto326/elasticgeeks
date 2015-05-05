@@ -1,3 +1,3 @@
-class Admin::CategoriesController < Admin::BaseController
+class Admin::ItemsController < Admin::BaseController
 
 end

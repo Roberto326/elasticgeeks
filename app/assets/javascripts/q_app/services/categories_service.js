@@ -7,6 +7,10 @@ app.service('CategoriesService', ['$http', 'Category', 'ApiParams', 'ApiBaseServ
       return ApiBaseService.getList(Category, '/categories', limit, offset, filter, order, context)
     },
 
+    getListAll: function (limit, offset, filter, order, context) {
+      return ApiBaseService.getList(Category, '/categories/index_all', limit, offset, filter, order, context)
+    },
+
     create: function (category) {
       return $http.post( ApiParams.composeCreateURI('/categories', category), {category:category} )
         .then(function (success_response) {

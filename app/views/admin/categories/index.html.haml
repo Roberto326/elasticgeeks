@@ -1,4 +1,98 @@
-.container{style:'width:100%'}
-  %div{'ng-controller' => 'AdminCategoriesController', 'ng-cloak' => 'true', 'ng-init' => 'setRoot(NULL)'}
-    = render :partial => 'admin/categories/category'
-    = render :partial => 'admin/categories/item'
+.container
+  %div{'ng-controller' => 'AdminCategoriesController', 'ng-cloak' => 'true'}
+    .row
+      .col-md-12
+        %h2
+          Categories
+        -#%button.btn.btn-info.pull-right{'ng-click' => 'edit_category.new({parent_id:current_parent.id})'}
+        -#  New Category
+    .row
+      .col-md-12
+        %table.table.table-bordered.table-hover
+          %tr
+            %th ID
+            %th Name
+            %th Wiki ID
+            %th Wiki Term
+            %th Action
+          %tr{'ng-repeat' => 'category in categories'}
+            %td
+              {{category.id}}
+            %td
+              .btn-link{'ng-click' => 'edit_category.edit(category)'}
+                {{category.name}}
+            %td
+              {{category.wiki_id}}
+            %td
+              {{category.wiki_name}}
+            %td
+              %button.btn.btn-info{type:'button', 'ng-click' => 'edit_category.edit(category)'}
+                edit
+              %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_category.delete(category)'}
+                delete
+
+    %div{style:'position:fixed; top:0; left:0; right:0; bottom:0; background-color:rgba(0,0,0,0.5);', 'ng-show' => 'edit_category.editing'}
+
+    #edit_div{style:'position:fixed; top:20%; left:10%; right:10%;', 'ng-show' => 'edit_category.editing'}
+      .row
+        .col-md-8
+          .panel.panel-primary
+            .panel-heading
+              {{edit_category.operation}}
+            .panel-body
+              %form.form-horizontal
+                .form-group
+                  .col-md-2
+                    %label Name
+                  .col-md-4
+                    %input.form-control{type:'text', 'ng-model' => 'edit_category.record.name'}
+                .form-group
+                  .col-md-2
+                    %label Description (Markdown)
+                  .col-md-10
+                    %textarea.form-control{rows:6, 'ng-model' => 'edit_category.record.description'}
+                .form-group
+                  .col-md-2
+                    %label Custom Fields
+                  .col-md-10
+                    %textarea.form-control{rows:'3', 'ng-model' => 'edit_category.fields_def_text', 'ng-change' => 'edit_category.fields_def_ok = edit_category.record.textToFields(edit_category.fields_def_text)'}
+                    %span.label.label-success{'ng-show' => 'edit_category.fields_def_ok'}
+                      Valid
+                    %span.label.label-danger{'ng-hide' => 'edit_category.fields_def_ok'}
+                      Invalid
+                .form-group
+                  .col-md-2
+                    %label Wikidata ID / Label
+                  .col-md-5
+                    %input.form-control{type:'text', 'ng-model' => 'edit_category.record.wiki_id'}
+                  .col-md-5
+                    %input.form-control{type:'text', 'ng-model' => 'edit_category.record.wiki_name'}
+            .panel-footer.text-right
+              %button.btn.btn-info{type:'button', 'ng-click' => 'edit_category.save()', 'ng-disabled' => '!edit_category.fields_def_ok'}
+                Save
+              %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_category.cancel()'}
+                Cancel
+        .col-md-4
+          .panel.panel-default
+            .panel-heading
+              WIKIDATA
+            .panel-body{style:'padding:0'}
+              %table.table.table-hover
+                %tr
+                  %th &nbsp;
+                  %th Term
+                  %th Description
+                %tr{'ng-repeat' => 'wiki in wiki_results'}
+                  %td
+                    %span{'ng-show' => 'wiki.id == edit_category.record.wiki_id'}
+                      %a.btn.btn-link.btn-primary
+                        %i.fa.fa-check-square
+                    %span{'ng-hide' => 'wiki.id == edit_category.record.wiki_id'}
+                      %a.btn.btn-link{'ng-click' => 'edit_category.setWiki(wiki.id, wiki.label)'}
+                        %i.fa.fa-hand-o-left
+                  %td
+                    %a.btn.btn-link{'ng-href' => '{{wiki.url}}', target:'_blank'}
+                      %i.fa.fa-external-link
+                    {{wiki.label}}
+                  %td
+                    {{wiki.description}}

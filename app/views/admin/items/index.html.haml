@@ -1,0 +1,128 @@
+.container{style:'width:95%'}
+  %div{'ng-controller' => 'AdminItemsController', 'ng-cloak' => 'true'}
+    .row
+      .col-md-12
+        %h2
+          Items
+        -#%button.btn.btn-info.pull-right{'ng-click' => 'edit_category.new({parent_id:current_parent.id})'}
+        -#  New Category
+      .row
+        .col-md-12
+          %table.table.table-bordered.table-hover
+            %tr
+              %th Category
+              %th Name
+              %th Wiki ID
+              %th Wiki Term
+              %th Website
+              %th Platform(s)
+              %th License(s)
+              %th{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+                {{field.camelize(true)}}
+              %th Action
+            %tr{'ng-repeat' => 'item in items'}
+              %td
+                {{item.category_name}}
+              %td
+                %a{href:'#', 'ng-click' => 'edit_item.edit(item)'}
+                  {{item.name}}
+              %td
+                {{item.wiki_id}}
+              %td
+                {{item.wiki_name}}
+              %td
+                {{item.website}}
+              %td
+                {{item.platform_names}}
+              %td
+                {{item.license_names}}
+              %td{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+                {{item.fields[field]}}
+              %td{style:'white-space:nowrap'}
+                %button.btn.btn-info{type:'button', 'ng-click' => 'edit_item.edit(item)'}
+                  edit
+                %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_item.delete(item)'}
+                  delete
+
+    %div{style:'position:fixed; top:0; left:0; right:0; bottom:0; background-color:rgba(0,0,0,0.5);', 'ng-show' => 'edit_item.editing'}
+
+    #edit_div{style:'position:fixed; top:20%; left:10%; right:10%;', 'ng-show' => 'edit_item.editing'}
+      .row
+        .col-md-8
+          .panel.panel-primary
+            .panel-heading
+              {{edit_item.operation}}
+            .panel-body
+              %form.form-horizontal
+                .form-group
+                  .col-md-2
+                    %label Name
+                  .col-md-10
+                    %input.form-control{type:'text', 'ng-model' => 'edit_item.record.name'}
+                .form-group
+                  .col-md-2
+                    %label Description (Markdown)
+                  .col-md-10
+                    %textarea.form-control{rows:6, 'ng-model' => 'edit_item.record.description'}
+                .form-group
+                  .col-md-2
+                    %label Website
+                  .col-md-10
+                    %input.form-control{type:'text', 'ng-model' => 'edit_item.record.website'}
+                .form-group
+                  .col-md-2
+                    %label Platform(s)
+                  .col-md-10
+                    %span.form-control{'ui-select2' => 'select2OptionsPlatform', 'ng-model' => 'edit_item.record.platforms'}
+                .form-group
+                  .col-md-2
+                    %label License(s)
+                  .col-md-10
+                    %span.form-control{'ui-select2' => 'select2OptionsLicense', 'ng-model' => 'edit_item.record.licenses'}
+                .form-group{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+                  .col-md-2
+                    %label
+                      {{field.camelize(true)}}
+                  .col-md-10
+                    %input.form-control{type:'text', 'ng-model' => 'edit_item.record.fields[field]'}
+                .form-group
+                  .col-md-2
+                    %label Wikidata ID / Label
+                  .col-md-5
+                    %input.form-control{type:'text', 'ng-model' => 'edit_item.record.wiki_id'}
+                  .col-md-5
+                    %input.form-control{type:'text', 'ng-model' => 'edit_item.record.wiki_name'}
+
+            .panel-footer.text-right
+              %button.btn.btn-info{type:'button', 'ng-click' => 'edit_item.save()'}
+                Save
+              %button.btn.btn-danger{type:'button', 'ng-click' => 'edit_item.cancel()'}
+                Cancel
+
+        .col-md-4
+          .panel.panel-default
+            .panel-heading
+              WIKIDATA
+            .panel-body{style:'padding:0'}
+              %table.table.table-hover
+                %tr
+                  %th &nbsp;
+                  %th Term
+                  %th Aliases
+                  %th Description
+                %tr{'ng-repeat' => 'wiki in wiki_results'}
+                  %td
+                    %span{'ng-show' => 'wiki.id == edit_item.record.wiki_id'}
+                      %a.btn.btn-link.btn-primary
+                        %i.fa.fa-check-square
+                    %span{'ng-hide' => 'wiki.id == edit_item.record.wiki_id'}
+                      %a.btn.btn-link{'ng-click' => 'edit_item.setWiki(wiki.id, wiki.label)'}
+                        %i.fa.fa-hand-o-left
+                  %td
+                    {{wiki.label}}
+                    %a{'ng-href' => '{{wiki.url}}', target:'_blank'}
+                      %i.fa.fa-external-link
+                  %td
+                    {{wiki.aliases}}
+                  %td
+              {{wiki.description}}

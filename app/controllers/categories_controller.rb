@@ -10,6 +10,13 @@ class CategoriesController < ApplicationController
     render json: {count:count, results:results}
   end
 
+  def index_all
+    query = Category.order(:parent_id, :name)
+    count = query.count
+    results = query
+    render json: {count:count, results:results}
+  end
+
   def show
     render json: {success:true, record:@category}
   end
