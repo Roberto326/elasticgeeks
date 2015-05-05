@@ -39,7 +39,7 @@
               %th{style:'width:2em'}
                 Trend
               %th{style:'width:2em'}
-                Actions
+                Links
               %th
                 Platform(s)
               %th
@@ -60,6 +60,8 @@
               %td.text-left
                 %a{href:"{{item.website}}", rel:'nofollow', target:'_blank', 'ng-show' => 'item.website'}
                   %i.fa.fa-external-link
+                %a{href:"http://en.wikipedia.org/wiki/{{item.wiki_name}}", rel:'nofollow', target:'_blank', 'ng-show' => 'item.wiki_name', style:'font-family: Timew New Roman; text-decoration:none; margin-left:4px'}
+                  W
               %td.text-left
                 {{item.platform_names}}
               %td.text-left

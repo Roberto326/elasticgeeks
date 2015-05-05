@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :update, :destroy]
 
   def index
-    query = Category.where(parent_id: params[:context].presence)
+    query = Category.where(parent_id: params[:context].presence).order(:name)
     count = query.count
     results = query
     render json: {count:count, results:results}
@@ -23,7 +23,13 @@ class CategoriesController < ApplicationController
 
   def show_popularity
 
-    render json: @category.items.map {|item| {name:item.name, data: item.trend_details.where('date >= ?',Date.new(2011,1,1)).map{|td| [td.date.to_time.utc, td.score] } }},
+    data = []
+    @category.items.each do |item|
+      next if item.wiki_name.blank?
+      data << {name:item.name, data: item.trend_details.where('date >= ?',Date.new(2011,1,1)).map{|td| [td.date.to_time.utc, td.score] } }
+    end
+
+    render json: data,
            height:'500px',
            library: {curvType: 'function', fontName:'Lato', pointSize:0}
   end

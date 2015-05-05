@@ -18,6 +18,10 @@ class ProcessTrends
     # category = Category.where(name:'Compiled Programming Languages').first
     puts "Processing Trends for #{category.name}"
 
+    # Erase previous results
+    Trend.delete_all(category_id:category.to_param)
+    TrendDetail.delete_all(category_id:category.to_param)
+
     trend_details = []
 
     csv_data = download_trends(category)
@@ -44,10 +48,6 @@ class ProcessTrends
             puts "****"
           end
           col_index[c] = {index:index, item:item}
-
-          # Erase previous results
-          Trend.delete_all(category_id:category.to_param, item_id:item.to_param)
-          TrendDetail.delete_all(category_id:category.to_param, item_id:item.to_param)
         end
       end
       first = false
@@ -165,12 +165,12 @@ class ProcessTrends
 
 
   def self.download_entity_names(category)
-    # url = https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases&ids=Q251
-    url = 'http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en&props=aliases&ids='
+    # url = https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases|labels&ids=Q251
+    url = 'http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en&props=aliases%7Clabels&ids='
 
     aliases = {}.with_indifferent_access
     category.items.each do |item|
-      aliases[item.id] = {wiki_id:item.wiki_id, wiki_name:item.wiki_name || item.name}
+      aliases[item.id] = {wiki_id:item.wiki_id, wiki_name:nil}
     end
 
     if (aliases.present?)
@@ -180,8 +180,8 @@ class ProcessTrends
 
       if hsh['entities'].present?
         hsh['entities'].each do |k,v|
-          if v['aliases']
 
+          if v['aliases']
             # Find matching wiki_id
             aliases.each do |item_id,data|
 
@@ -191,7 +191,19 @@ class ProcessTrends
               end
             end
 
+          elsif v['labels']
+
+            # Find matching wiki_id
+            aliases.each do |item_id,data|
+
+              if data[:wiki_id] == k
+                data[:wiki_name] = v['labels']['en']['value']
+                next
+              end
+            end
+
           end
+
         end
       end
 
@@ -215,6 +227,7 @@ class ProcessTrends
     url += category.items.map do |item|
 
       search = aliases[item.id][:wiki_name]
+      next if search.blank?
 
       "query[]=#{CGI::escape(search)}"
     end.join('&')
