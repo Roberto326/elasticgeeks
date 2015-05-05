@@ -165,8 +165,11 @@ class ProcessTrends
 
 
   def self.download_entity_names(category)
-    # url = https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases|labels&ids=Q251
-    url = 'http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en&props=aliases%7Clabels&ids='
+    # JAVA
+    # https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases%7Clabels%7Csitelinks&sitefilter=enwiki&ids=Q251
+    # Pig (programming language)
+    # https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases%7Clabels%7Csitelinks&sitefilter=enwiki&ids=Q7193204
+    url = 'http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en&props=aliases%7Clabels%7Csitelinks&sitefilter=enwiki&ids='
 
     aliases = {}.with_indifferent_access
     category.items.each do |item|
@@ -181,7 +184,17 @@ class ProcessTrends
       if hsh['entities'].present?
         hsh['entities'].each do |k,v|
 
-          if v['aliases']
+          if v['sitelinks'].present? && v['sitelinks']['enwiki'].present?
+            # Find matching wiki_id
+            aliases.each do |item_id,data|
+
+              if data[:wiki_id] == k
+                data[:wiki_name] = v['sitelinks']['enwiki']['title']
+                next
+              end
+            end
+
+          elsif v['aliases'].present?
             # Find matching wiki_id
             aliases.each do |item_id,data|
 
@@ -191,7 +204,7 @@ class ProcessTrends
               end
             end
 
-          elsif v['labels']
+          elsif v['labels'].present?
 
             # Find matching wiki_id
             aliases.each do |item_id,data|
