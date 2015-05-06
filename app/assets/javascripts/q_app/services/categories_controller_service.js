@@ -47,10 +47,25 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
         $('#'+$scope.div_id+"_chart").empty();
       };
 
+      var chartOptions = function(){
+        return {
+          height:'600px',
+          library: {
+            curveType: 'function',
+            fontName:'Lato',
+            pointSize:0,
+            vAxis: {
+            title:'Wikipedia Page Views',
+              logScale: false
+            }
+          }
+        }
+      };
+
       $scope.loadChart = function() {
         if ($scope.current_parent) {
           try {
-            new Chartkick.LineChart($scope.div_id+"_chart", "/categories/"+$scope.current_parent.id+"/show_popularity", {});
+            new Chartkick.LineChart($scope.div_id+"_chart", "/categories/"+$scope.current_parent.id+"/show_popularity", chartOptions());
           } catch (e) {};
         }
       };
@@ -112,6 +127,7 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
         }
 
         $scope.clearChart();
+        $scope.showChart = false;
       };
     }
   }

@@ -90,8 +90,44 @@ class ProcessTrends
 
     TrendDetail.import trend_details
 
+    apply_standard_deviation(category, trend_details)
+
     calculate_rank(category.to_param, total_sum)
 
+  end
+
+  def self.apply_standard_deviation(category, trend_details)
+
+    category.items.each do |item|
+
+      scores_all = TrendDetail.where(category_id:category.id, item_id:item.id).order('date asc').pluck(:id, :score)
+      ids        = scores_all.map{|i| i[0]}
+      scores     = scores_all.map{|i| i[1]}
+
+      # Adjust scores limiting them to standard deviation
+      scores.each_with_index do |score_item, idx|
+        deviation = 0
+
+        if idx > 3
+          delta = idx > 12 ? 12 : idx
+          sliced_score = scores.slice(idx-delta, delta)
+          deviation = sliced_score.stats_standard_deviation
+        end
+
+        # Check and Adjust
+        if deviation > 10
+          delta_plus  = (scores[idx-1] + deviation).to_i
+          delta_minus = (scores[idx-1] - deviation).to_i
+
+          scores[idx] = delta_plus  if scores[idx] > delta_plus
+          scores[idx] = delta_minus if scores[idx] < delta_minus
+        end
+      end
+
+      ids.each_with_index do |id, idx|
+        TrendDetail.find(id).update_attribute(:score, scores[idx])
+      end
+    end
   end
 
   def self.calculate_rank(category_id, total_sum)
@@ -99,13 +135,20 @@ class ProcessTrends
     total_sum.each do |item_id, score|
       next if item_id.nil?
 
+      scores = TrendDetail.where(category_id:category_id, item_id:item_id).order('date desc').pluck(:score)
+
+      scores_now  = scores.slice( 0,12).reject{|item| item == 0}
+      scores_year = scores.slice(12,12).reject{|item| item == 0}
+
       record = {
-        item_id: item_id,
-        score:   score,
-        td_now:  TrendDetail.where(category_id:category_id, item_id:item_id).order(:date)[ -1].score,
-        td_year: TrendDetail.where(category_id:category_id, item_id:item_id).order(:date)[-13].score,
+        item_id:  item_id,
+        score:    score,
+        td_now:   scores[0],
+        td_year:  scores[12],
+        avg_now:  scores_now.present? ? (scores_now.inject(0.0) {|sum,item| sum+item} / scores_now.count).to_i : 0,
+        avg_year: scores_year.present? ? (scores_year.inject(0.0) {|sum,item| sum+item} / scores_year.count).to_i : 0,
         rank_year: 0,
-        rank_now: 0
+        rank_now:  0
       }
 
       data << record
@@ -125,7 +168,7 @@ class ProcessTrends
       rank += 1
     end
 
-    # calculate trend
+    # calculate rank trend
     data.each do |data_item|
       diff = data_item[:rank_year] - data_item[:rank_now]
       trend = 0
@@ -145,10 +188,40 @@ class ProcessTrends
       data_item[:trend] = trend
     end
 
+    # calculate real trend
+    data.each do |data_item|
+      trend = 0
+
+      if data_item[:avg_now] > 0 && data_item[:avg_year] > 0
+        factor = data_item[:avg_now] / data_item[:avg_year].to_f
+
+        puts data_item[:item_id]
+        puts factor
+
+        if factor >= 1.5
+          trend = 3
+        elsif factor >= 1.35
+          trend = 2
+        elsif factor >= 1.18
+          trend = 1
+        elsif factor > 0.95
+          trend = 0
+        elsif factor > 0.80
+          trend = -1
+        elsif factor > 0.60
+          trend = -2
+        else
+          trend = -3
+        end
+      end
+
+      data_item[:real_trend] = trend
+    end
+
     #Save
     trends = []
     data.each do |data_item|
-      trends << Trend.new(category_id:category_id, item_id:data_item[:item_id], trend:data_item[:trend], score:data_item[:score], rank:data_item[:rank_now], rank_year:data_item[:rank_year])
+      trends << Trend.new(category_id:category_id, item_id:data_item[:item_id], trend:data_item[:trend], real_trend:data_item[:real_trend], score:data_item[:score], rank:data_item[:rank_now], rank_year:data_item[:rank_year])
     end
 
     Trend.import trends
@@ -159,7 +232,8 @@ class ProcessTrends
       next if category_id.nil?
       next if item_id.nil?
       next if date.nil?
-      trend_details << TrendDetail.new(category_id:category_id, item_id:item_id, date:date, score:score)
+      # Score is monthly average
+      trend_details << TrendDetail.new(category_id:category_id, item_id:item_id, date:date, score:score / date.day)
     end
   end
 

@@ -9,9 +9,9 @@ class ItemsController < ApplicationController
     results = query.joins('LEFT OUTER JOIN trends on trends.item_id = items.id').includes(:trends).order('ISNULL(items.wiki_name), trends.rank asc').map do |r|
       t = r.trends.first
       if t
-        r.to_hash.merge!(trend: t.trend, rank: t.rank, rank_year: t.rank_year)
+        r.to_hash.merge!(trend: t.trend, rank: t.rank, rank_year: t.rank_year, real_trend: t.real_trend)
       else
-        r.to_hash.merge!(trend: 'n/a', rank: 'n/a', rank_year: 'n/a')
+        r.to_hash.merge!(trend: 'n/a', rank: 'n/a', rank_year: 'n/a', real_trend:'n/a')
       end
     end
     render json: {count:count, results:results}
@@ -79,6 +79,7 @@ class ItemsController < ApplicationController
     result.delete('platform_names')
     result.delete('license_names')
     result.delete('trend')
+    result.delete('real_trend')
     result.delete('rank')
     result.delete('rank_year')
     result.delete('category_name')

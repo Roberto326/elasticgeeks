@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505122302) do
+ActiveRecord::Schema.define(version: 20150506042826) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255,                   null: false
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20150505122302) do
     t.integer "score",       limit: 4
     t.integer "rank",        limit: 4
     t.integer "rank_year",   limit: 4
+    t.integer "real_trend",  limit: 4
   end
 
   add_index "trends", ["category_id", "item_id"], name: "index_trends_on_category_id_and_item_id", using: :btree

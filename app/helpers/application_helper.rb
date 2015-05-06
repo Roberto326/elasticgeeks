@@ -67,4 +67,19 @@ module ApplicationHelper
     Redcarpet::Markdown.new(renderer, extensions).render(text).html_safe
   end
 
+  def chart_options
+    {
+      height:'600px',
+      library: {
+        curveType: 'function',
+        fontName:'Lato',
+        pointSize:0,
+        vAxis: {
+          title:'Wikipedia Page Views',
+          logScale: false
+        }
+      }
+    }
+  end
+
 end

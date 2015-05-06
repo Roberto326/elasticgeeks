@@ -15,6 +15,7 @@ app.factory('Item', [
       this.wiki_id        = json.wiki_id       || null;
       this.wiki_name      = json.wiki_name     || null;
       this.trend          = json.trend         || null;
+      this.real_trend     = json.real_trend    || null;
       this.rank           = json.rank          || null;
       this.rank_year      = json.rank_year     || null;
       this.category_id    = json.category_id   || null;

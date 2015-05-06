@@ -26,12 +26,11 @@ class CategoriesController < ApplicationController
     data = []
     @category.items.each do |item|
       next if item.wiki_name.blank?
-      data << {name:item.name, data: item.trend_details.where('date >= ?',Date.new(2011,1,1)).map{|td| [td.date.to_time.utc, td.score] } }
+      # where('date >= ?',Date.new(2011,1,1))
+      data << {name:item.name, data: item.trend_details.map{|td| [td.date.to_time.utc, td.score] } }
     end
 
-    render json: data,
-           height:'500px',
-           library: {curvType: 'function', fontName:'Lato', pointSize:0}
+    render json: data
   end
 
   def create
