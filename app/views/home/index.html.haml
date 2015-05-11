@@ -29,11 +29,11 @@
                 Development Tools
 
 %wrapper
-  -#= render partial:'home/section', locals: {div_id:'enterprise', ng_controller:'EAController', category:Category.find(1)}
+  -#= render partial:'home/section', locals: {div_id:'enterprise', ng_controller:'PPController', category:Category.find(1)}
   = render partial:'home/section', locals: {div_id:'programming',ng_controller:'PPController', category:Category.find(2)}
-  = render partial:'home/section', locals: {div_id:'development',ng_controller:'DTController', category:Category.find(3)}
+  = render partial:'home/section', locals: {div_id:'development',ng_controller:'PPController', category:Category.find(3)}
 
-  %section{id:"about"}
+  %section{id:'about'}
     .container
       .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
         %h1
@@ -42,4 +42,4 @@
         .row
           .col-md-12
             %p
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tempor arcu metus. Proin malesuada viverra nibh in molestie. Sed finibus facilisis ex et fringilla. Proin vestibulum justo est, et cursus sem lobortis eget. Pellentesque finibus ullamcorper venenatis. Morbi augue ex, imperdiet et ligula vel, condimentum vehicula dui. Quisque tellus massa, congue in dignissim convallis, efficitur at diam. Maecenas eget magna iaculis, hendrerit libero sit amet, lobortis risus. Etiam imperdiet massa elit, quis lacinia massa mollis id. Praesent sollicitudin scelerisque vulputate
+              Elastic Geeks is made up of software development professionals with an average of 20 years of experience developing production level software for ISVs, SaaS providers and enterprises.  The Geeks hold multiple patents for software innovation.

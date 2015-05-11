@@ -1,4 +1,4 @@
-.container
+.container{'ng-controller' => 'PPController', 'ng-init' => "init(#{@category.to_json},'#{@category.name.parameterize}', true)"}
   .row.col-md-12
     %h1
       - if @category.parent
@@ -21,45 +21,12 @@
 
   - if @items.present?
 
-    .row.col-md-12
-      %h3
-        Products
-    .row.col-md-12
-      %table.table.table-bordered.table-hover.qapp-item
-        %tr
-          %th Name
-          %th{style:'width:2em'}
-            Rank
-          %th{style:'width:2em'}
-            Trend
-          %th{style:'width:2em'}
-            Actions
-          %th Platform(s)
-          %th License(s)
-        - @items.each do |item|
-          %tr
-            %td.text-left
-              = item[:name]
-            %td.text-left
-              = item[:rank]
-
-            %td.trend{class:"trend#{item[:trend]}", style:'position:relative'}
-              %i.fa.fa-2x
-              %div{style:'position:absolute; bottom:0px; right:0px; width:30%; height:30%;font-size:60%; text-align:center; vertical-align:bottom; opacity:0.7;'}
-                = item[:trend]
-
-            %td.text-left
-              - if item[:website].present?
-                %a{href:"#{item[:website]}", target:'_blank'}
-                  %i.fa.fa-external-link
-            %td.text-left
-              = item[:platforms].map{|p| p[:text]}.join(', ') if item[:platforms].present?
-            %td.text-left
-              = item[:licenses].map{|p| p[:text]}.join(', ') if item[:licenses].present?
+    .row
+      = render partial:'home/section_grid', locals: {div_id:@category.name.parameterize, ng_controller:'PPController', category:@category}
 
     .row.col-md-12
       %h3
         Popularity Over Time
 
-    .row.col-md-12
-      = line_chart show_popularity_category_path(@category), chart_options()
+    .row
+      = render partial:'home/section_chart', locals: {div_id:@category.name.parameterize, ng_controller:'PPController', category:@category}

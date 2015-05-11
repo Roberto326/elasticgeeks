@@ -65,6 +65,7 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
       $scope.loadChart = function() {
         if ($scope.current_parent) {
           try {
+            console.log($scope.div_id+"_chart");
             new Chartkick.LineChart($scope.div_id+"_chart", "/categories/"+$scope.current_parent.id+"/show_popularity", chartOptions());
           } catch (e) {};
         }

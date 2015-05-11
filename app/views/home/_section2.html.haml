@@ -1,0 +1,82 @@
+%section{id:"#{div_id}"}
+  .container{'ng-controller' => "#{ng_controller}", 'ng-init' => "init(#{category.to_json},'#{div_id}')"}
+    .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
+      .row
+        .col-md-12
+          %ol.breadcrumb.text-left
+            %li{'ng-repeat' => 'parent in parents'}
+              %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+                {{parent.name}}
+            %div
+              %span{'ng-show' => 'hasDescription'}
+                %a.btn-link{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-hide' => 'showDescription'}
+                  %i.fa.fa-plus-circle.fa-2x.swing
+                %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-show' => 'showDescription'}
+                  %i.fa.fa-minus-circle.fa-2x.swing
+
+              %a.btn-link{'ng-href' => '/index/{{current_parent.action()}}', style:'margin-left:0.5em', target:'_blank'}
+                %i.fa.fa-folder-open.fa-2x.swing
+
+              %button.btn-link{'ng-click' => 'setShowChart(false)','ng-show' => 'hasItems'}
+                %i.fa.fa-list.fa-2x
+
+              %button.btn-link{'ng-click' => 'setShowChart(true)','ng-show' => 'hasItems'}
+                %i.fa.fa-line-chart.fa-2x
+
+
+              %div{'ng-show' => 'showDescription'}
+                %q-markdown{data:'current_parent.description'}
+
+      .row.qapp-category{'ng-show' => 'hasCategories'}
+        .col-sm-4{'ng-repeat' => 'category in categories'}
+          %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
+            {{category.name}}
+
+      .row{'ng-show' => 'hasItems'}
+        .col-md-12.text-left
+          %table.table.table-bordered.table-hover.qapp-item{'ng-show' => '!showChart'}
+            %tr
+              %th
+                Name
+              %th{style:'width:2em'}
+                Rank
+              %th{style:'width:2em'}
+                Trend
+              %th{style:'width:2em'}
+                Links
+              %th
+                Platform(s)
+              %th
+                License(s)
+              %th{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+                {{field.camelize(true)}}
+            %tr{'ng-repeat' => 'item in items'}
+              %td.text-left
+                {{item.name}}
+
+              %td.text-left{style:'position:relative'}
+                %div.rank-number
+                  {{item.rank}}
+                %div{class:'trend{{item.trend}} rank-gliph'}
+                  %i.fa.fa-2x
+                %div.rank-trend
+                  {{item.trend}}
+
+              %td.trend.text-center
+                %div{class:'real-trend-base real-trend{{item.real_trend}}'}
+                  %i.fa
+
+              %td.text-left{style:'white-space:nowrap'}
+                %a{href:"{{item.website}}", rel:'nofollow', target:'_blank', 'ng-show' => 'item.website'}
+                  %i.fa.fa-external-link
+                %a{href:"http://en.wikipedia.org/wiki/{{item.wiki_name}}", rel:'nofollow', target:'_blank', 'ng-show' => 'item.wiki_name', style:'font-family: Timew New Roman; text-decoration:none; margin-left:4px'}
+                  W
+              %td.text-left
+                {{item.platform_names}}
+              %td.text-left
+                {{item.license_names}}
+              %td.text-left{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+                {{item.fields[field]}}
+
+          %div{id:"#{div_id}_chart",'ng-show' => 'showChart', style:'height:620px'}
+            Loading

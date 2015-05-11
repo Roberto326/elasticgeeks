@@ -1,0 +1,45 @@
+.col-md-12.text-left
+  %table.table.table-bordered.table-hover.qapp-item
+    %tr
+      %th
+        Name
+      %th{style:'width:2em'}
+        Rank
+      %th{style:'width:2em'}
+        Trend
+      %th{style:'width:2em'}
+        Links
+      %th
+        Platform(s)
+      %th
+        License(s)
+      %th{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+        {{field.camelize(true)}}
+    %tr{'ng-repeat' => 'item in items'}
+      %td.text-left
+        {{item.name}}
+
+      %td.text-left{style:'position:relative'}
+        %div.rank-number
+          {{item.rank}}
+        %div{class:'trend{{item.trend}} rank-gliph'}
+          %i.fa.fa-2x
+        %div.rank-trend
+          {{item.trend}}
+
+      %td.trend.text-center
+        %div{class:'real-trend-base real-trend{{item.real_trend}}'}
+          %i.fa
+
+      %td.text-left{style:'white-space:nowrap'}
+        %a{href:"{{item.website}}", rel:'nofollow', target:'_blank', 'ng-show' => 'item.website'}
+          %i.fa.fa-external-link
+        %a{href:"http://en.wikipedia.org/wiki/{{item.wiki_name}}", rel:'nofollow', target:'_blank', 'ng-show' => 'item.wiki_name', style:'font-family: Timew New Roman; text-decoration:none; margin-left:4px'}
+          W
+      %td.text-left
+        {{item.platform_names}}
+      %td.text-left
+        {{item.license_names}}
+      %td.text-left{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+        {{item.fields[field]}}
+
