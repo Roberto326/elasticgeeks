@@ -243,7 +243,7 @@ class ProcessTrends
     # https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases%7Clabels%7Csitelinks&sitefilter=enwiki&ids=Q251
     # Pig (programming language)
     # https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&callback=JSON_CALLBACK&languages=en&props=aliases%7Clabels%7Csitelinks&sitefilter=enwiki&ids=Q7193204
-    url = 'http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en&props=aliases%7Clabels%7Csitelinks&sitefilter=enwiki&ids='
+    url = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&languages=en&props=aliases%7Clabels%7Csitelinks&sitefilter=enwiki&ids='
 
     aliases = {}.with_indifferent_access
     category.items.each do |item|
