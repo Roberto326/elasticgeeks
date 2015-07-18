@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506042826) do
+ActiveRecord::Schema.define(version: 20150716005224) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255,                   null: false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20150506042826) do
     t.boolean  "disabled",    limit: 1,     default: false
   end
 
+  add_index "items", ["name", "description", "wiki_name"], name: "items_fulltext", type: :fulltext
   add_index "items", ["wiki_id"], name: "index_items_on_wiki_id", using: :btree
   add_index "items", ["wiki_name"], name: "index_items_on_wiki_name", using: :btree
 

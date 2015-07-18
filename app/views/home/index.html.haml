@@ -9,13 +9,6 @@
       .row
         .col-md-4
           .main-item.sp-effect3
-            %a{href:'#enterprise'}
-              %i.fa.fa-university
-              .subtitle
-                Enterprise Applications
-        
-        .col-md-4
-          .main-item.sp-effect3
             %a{href:'#programming'}
               %i.fa.fa-cogs
               .subtitle
@@ -28,10 +21,20 @@
               .subtitle
                 Development Tools
 
-%wrapper
-  = render partial:'home/section', locals: {div_id:'enterprise', ng_controller:'PPController', category:Category.find(1)}
+        .col-md-4
+          .main-item.sp-effect3
+            %a{href:'#enterprise'}
+              %i.fa.fa-university
+              .subtitle
+                Enterprise Applications
+
+
+      %wrapper
   = render partial:'home/section', locals: {div_id:'programming',ng_controller:'PPController', category:Category.find(2)}
   = render partial:'home/section', locals: {div_id:'development',ng_controller:'PPController', category:Category.find(3)}
+  = render partial:'home/section', locals: {div_id:'enterprise', ng_controller:'PPController', category:Category.find(1)}
+
+  = render partial:'home/search', locals: {div_id:'search', ng_controller:'PPController', category:Category.new()}
 
   %section{id:'about'}
     .container

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :items do
     collection do
       get 'index_all'
+      get 'search'
     end
   end
   resources :platforms

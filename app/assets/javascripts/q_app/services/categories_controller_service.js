@@ -22,6 +22,7 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
       $scope.hasDescription = false;
       $scope.showDescription = false;
       $scope.showChart = false;
+      $scope.searchText = '';
 
       $scope.setRoot = function(category) {
         $scope.parents = [];
@@ -33,6 +34,26 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
         $scope.setCurrentParent(category);
         $scope.reload();
       };
+
+      $scope.search = function() {
+        if ($scope.searchText) {
+          ItemsService.search(null, null, null, null, $scope.searchText).then(function (data) {
+            $scope.items = data.results;
+            $scope.hasItems = !data.results.isEmpty();
+          });
+        };
+      };
+
+      $('#search_input').keyup(function(eventData){
+        eventData.stopPropagation();
+        if (eventData.keyCode == 27) {
+          $scope.searchText = '';
+          $scope.$digest();
+        } else if (eventData.keyCode == 13) {
+          $scope.search();
+        }
+
+      });
 
       $scope.toggleShowDescription = function() {
         $scope.showDescription = !$scope.showDescription;

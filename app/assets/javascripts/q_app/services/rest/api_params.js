@@ -31,6 +31,33 @@ app.service('ApiParams', [  function(){
       return encodeURI(uri);
     },
 
+    composeSearchURI: function(basePath, limit, offset, filter, order, search) {
+      var uri = basePath;
+      if (basePath.indexOf('?') < 0) uri += '?';
+
+      if (limit) {
+        uri += '&limit='+limit;
+      }
+
+      if (offset) {
+        uri += '&offset='+offset;
+      }
+
+      if (filter && !filter.isEmpty()) {
+        uri += '&filter='+JSON.stringify(filter);
+      }
+
+      if (order && !order.isEmpty()) {
+        uri += '&order='+JSON.stringify(order);
+      }
+
+      if (search) {
+        uri += '&search='+encodeURIComponent(search);
+      }
+
+      return encodeURI(uri);
+    },
+
     composeGetFacetsURI: function(basePath, filter, context) {
       var uri = basePath;
       if (basePath.indexOf('?') < 0) uri += '?';

@@ -11,6 +11,10 @@ app.service('ItemsService', ['$http', 'Item', 'ApiParams', 'ApiBaseService', fun
       return ApiBaseService.getList(Item, '/items/index_all', limit, offset, filter, order, context)
     },
 
+    search: function (limit, offset, filter, order, text) {
+      return ApiBaseService.search(Item, '/items/search', limit, offset, filter, order, text)
+    },
+
     create: function (item) {
       return $http.post( ApiParams.composeCreateURI('/items', item), {item:item} )
         .then(function (success_response) {

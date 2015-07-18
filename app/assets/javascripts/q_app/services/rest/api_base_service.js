@@ -20,6 +20,21 @@ app.service('ApiBaseService', ['$http', 'ApiParams', function($http, ApiParams){
           });
       },
 
+      search : function (Model, uri, limit, offset, filter, order, search) {
+        return $http.get( ApiParams.composeSearchURI(uri, limit, offset, filter, order, search) )
+          .then(function (success_response) {
+
+            var data = [];
+            angular.forEach(success_response.data.results, function (item) {
+              data.push(new Model(item));
+            });
+
+            return ApiParams.resultGetList(success_response, data);
+          }, function (error_response) {
+            return ApiParams.resultGetList(error_response);
+          });
+      },
+
       getFacets : function (Model, uri, filter, context) {
         return $http.get( ApiParams.composeGetFacetsURI(uri, filter, context) )
           .then(function (success_response) {

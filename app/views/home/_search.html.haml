@@ -1,0 +1,15 @@
+%section{id:"#{div_id}"}
+  .container{'ng-controller' => 'PPController', 'ng-init' => "init(#{category.to_json},'#{div_id}')"}
+    .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
+      .row
+        .col-md-12
+          %ol.breadcrumb.text-left
+            %span{style:'font-size:2em;margin-bottom:6px;display:inline-block'}
+              Search
+            .input-group
+              %input.form-control{id:'search_input', type:'text', 'ng-model' => 'searchText', }
+              %span.input-group-addon{'ng-click' => 'search()'}
+                %i.fa.fa-search
+
+      .row{'ng-show' => 'hasItems'}
+        = render partial:'home/section_grid', locals: {div_id:"#{div_id}"}

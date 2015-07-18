@@ -17,6 +17,20 @@ class ItemsController < ApplicationController
     render json: {count:count, results:results}
   end
 
+  def search
+    query = Item.where("match(name,description,wiki_name) against('#{URI.decode(params[:search])}')")
+    count = query.count
+    results = query.joins('LEFT OUTER JOIN trends on trends.item_id = items.id').includes(:trends).order('ISNULL(items.wiki_name), trends.rank asc').map do |r|
+      t = r.trends.first
+      if t
+        r.to_hash.merge!(trend: t.trend, rank: t.rank, rank_year: t.rank_year, real_trend: t.real_trend)
+      else
+        r.to_hash.merge!(trend: 'n/a', rank: 'n/a', rank_year: 'n/a', real_trend:'n/a')
+      end
+    end
+    render json: {count:count, results:results}
+  end
+
   def index_all
     query = Item.joins(:platforms, :licenses, :category).includes(:platforms, :licenses, :category).order('categories.name asc, items.name asc')
     count = query.count
