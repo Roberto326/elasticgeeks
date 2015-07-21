@@ -25,7 +25,6 @@ app.service('ItemsService', ['$http', 'Item', 'ApiParams', 'ApiBaseService', fun
     },
 
     update: function (item) {
-      console.log(item);
       return $http.put( ApiParams.composeUpdateURI('/items', item.id), {item:item} )
         .then(function (success_response) {
           return ApiParams.resultUpdate(success_response);

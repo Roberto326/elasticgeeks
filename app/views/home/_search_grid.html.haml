@@ -1,0 +1,15 @@
+.col-md-12.text-left
+  %table.table.table-bordered.table-hover.qapp-item
+    %tr{'ng-repeat' => 'result in results'}
+      %td.text-left
+        .sr-category
+          %span{'ng-show'=>'result.category_2.name'}
+            %a{href:'javascript:void(0)'}
+              {{result.category_2.name}}
+            {{' / '}}
+          %span{'ng-show'=>'result.category_1.name'}
+            %a{href:'javascript:void(0)'}
+              {{result.category_1.name}}
+        .sr-item
+          %a{href:'javascript:void(0)', 'ng-click' => 'showResult(result.category_1)'}
+            {{result.name}}

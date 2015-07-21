@@ -14,7 +14,6 @@ app.service('EditService', ['ModalService', function (ModalService) {
       this.record = angular.copy(record);
       this.callbacks.fireCallback('beforeEdit',this.record);
       this.editing = true;
-      console.log(this.editing);
     };
 
     this.new = function(record) {

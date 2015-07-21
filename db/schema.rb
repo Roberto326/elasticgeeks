@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716005224) do
+ActiveRecord::Schema.define(version: 20150721145908) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255,                   null: false
@@ -66,6 +66,16 @@ ActiveRecord::Schema.define(version: 20150716005224) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "searches", force: :cascade do |t|
+    t.string  "rec_type",    limit: 255
+    t.integer "rec_id",      limit: 4
+    t.string  "name",        limit: 255
+    t.text    "description", limit: 65535
+    t.string  "wiki_name",   limit: 255
+  end
+
+  add_index "searches", ["name", "description", "wiki_name"], name: "search_fulltext", type: :fulltext
 
   create_table "trend_details", force: :cascade do |t|
     t.integer "category_id", limit: 4, null: false

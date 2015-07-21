@@ -8,5 +8,6 @@ task :wikipedia, [:category_id]  => :environment do |t,args|
     ProcessTrends.trends_for_parent()
   end
 
+  Search.reindex
 
 end

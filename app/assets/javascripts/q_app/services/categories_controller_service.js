@@ -1,6 +1,6 @@
 var app = angular.module('ngQApp.services');
 
-app.service('CategoriesControllerService', ['CategoriesService','ItemsService', function (CategoriesService, ItemsService) {
+app.service('CategoriesControllerService', ['CategoriesService','ItemsService','SearchesService','$location','$anchorScroll', function (CategoriesService, ItemsService, SearchesService, $location, $anchorScroll) {
 
   return  {
     setup: function($scope) {
@@ -23,9 +23,13 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
       $scope.showDescription = false;
       $scope.showChart = false;
       $scope.searchText = '';
+      $scope.searchResults = [];
+      $scope.hasResults = false;
+      $scope.tabExploreVisible = true;
 
-      $scope.setRoot = function(category) {
+      $scope.setRoot = function(root, category) {
         $scope.parents = [];
+        $scope.setCurrentParent(root);
         $scope.setCurrentParent(category);
         $scope.reload();
       };
@@ -36,24 +40,36 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
       };
 
       $scope.search = function() {
+        $scope.results = [];
         if ($scope.searchText) {
-          ItemsService.search(null, null, null, null, $scope.searchText).then(function (data) {
-            $scope.items = data.results;
-            $scope.hasItems = !data.results.isEmpty();
+          SearchesService.search(null, null, null, null, $scope.searchText).then(function (data) {
+            $scope.results = data.results;
+            $scope.hasResults = !data.results.isEmpty();
           });
         };
       };
 
       $('#search_input').keyup(function(eventData){
         eventData.stopPropagation();
+        console.log($scope.searchText);
         if (eventData.keyCode == 27) {
           $scope.searchText = '';
           $scope.$digest();
+          $scope.search();
         } else if (eventData.keyCode == 13) {
           $scope.search();
+        } else if ($scope.searchText == '') {
+          $scope.search();
         }
-
       });
+
+      $scope.showResult = function(category) {
+        $scope.seeChildren(category);
+        $('#main_tabs a:first').tab('show');
+        $scope.tabExploreVisible = true;
+
+        location.hash = "#" + $scope.div_id;
+      };
 
       $scope.toggleShowDescription = function() {
         $scope.showDescription = !$scope.showDescription;
@@ -86,17 +102,18 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
       $scope.loadChart = function() {
         if ($scope.current_parent) {
           try {
-            console.log($scope.div_id+"_chart");
             new Chartkick.LineChart($scope.div_id+"_chart", "/categories/"+$scope.current_parent.id+"/show_popularity", chartOptions());
           } catch (e) {};
         }
       };
 
       $scope.loadCategories = function() {
+        $scope.categories = [];
+
         CategoriesService.getList(null, null, null, null, $scope.current_parent.id).then(function (data) {
           $scope.categories     = data.results;
           $scope.categoriesIn3s = $scope.in3s(data.results);
-          $scope.hasCategories = !data.results.isEmpty();
+          $scope.hasCategories  = !data.results.isEmpty();
         });
       };
 
@@ -119,6 +136,7 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService', 
       };
 
       $scope.loadItems = function() {
+        $scope.items = [];
         ItemsService.getList(null, null, null, null, $scope.current_parent.id).then(function (data) {
           $scope.items = data.results;
           $scope.hasItems = !data.results.isEmpty();

@@ -11,5 +11,8 @@
               %span.input-group-addon{'ng-click' => 'search()'}
                 %i.fa.fa-search
 
-      .row{'ng-show' => 'hasItems'}
+      .row{'ng-show' => 'hasResults'}
+        = render partial:'home/search_grid', locals: {div_id:"#{div_id}"}
+
+      .row{'ng-show' => 'hasItems && !showChart'}
         = render partial:'home/section_grid', locals: {div_id:"#{div_id}"}

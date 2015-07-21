@@ -128,7 +128,6 @@ app.service('ApiParams', [  function(){
 
     resultGetFacets: function(response) {
       if (response.status == 200) {
-        console.log(response);
         return {
           success: true,
           status: response.status,

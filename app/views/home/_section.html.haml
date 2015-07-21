@@ -1,39 +1,70 @@
 %section{id:"#{div_id}"}
-  .container{'ng-controller' => 'PPController', 'ng-init' => "init(#{category.to_json},'#{div_id}')"}
+  .container{'ng-controller' => 'PPController', 'ng-init' => "init(#{root.to_json}, #{category.to_json},'#{div_id}')"}
     .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
+      %h1
+        Explore & Search
+      .divider
+
       .row
         .col-md-12
-          %ol.breadcrumb.text-left
-            %li{'ng-repeat' => 'parent in parents'}
-              %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
-                {{parent.name}}
-            %div
-              %span{'ng-show' => 'hasDescription'}
-                %a.btn-link{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-hide' => 'showDescription'}
-                  %i.fa.fa-plus-circle.fa-2x.swing
-                %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-show' => 'showDescription'}
-                  %i.fa.fa-minus-circle.fa-2x.swing
+          %ul.nav.nav-tabs{id:'main_tabs', role:'tablist'}
+            %li.main-tab.active{role:'presentation'}
+              %a{href:'javascript:void(0)', role:'tab', 'data-toggle' => 'tab', 'ng-click' => 'tabExploreVisible=true'}
+                Explore
+            %li.main-tab{role:'presentation'}
+              %a{href:'javascript:void(0)', role:'tab', 'data-toggle' => 'tab', 'ng-click' => 'tabExploreVisible=false'}
+                Search
 
-              %a.btn-link{'ng-href' => '/index/{{current_parent.action()}}', style:'margin-left:0.5em', target:'_blank'}
-                %i.fa.fa-folder-open.fa-2x.swing
+          .tab-content
+            .tab-panel{role:'tabpanel', 'ng-show' => 'tabExploreVisible'}
+              .row
+                .col-md-12
+                  %ol.breadcrumb.text-left
+                    %li{'ng-repeat' => 'parent in parents'}
+                      %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
+                        {{parent.name}}
+                    %div
+                      %span{'ng-show' => 'hasDescription'}
+                        %a.btn-link{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-hide' => 'showDescription'}
+                          %i.fa.fa-plus-circle.fa-2x.swing
+                        %a{href:'', rel:'nofollow', 'ng-click' => 'toggleShowDescription()', 'ng-show' => 'showDescription'}
+                          %i.fa.fa-minus-circle.fa-2x.swing
 
-              %button.btn-link{'ng-click' => 'setShowChart(false)','ng-show' => 'hasItems'}
-                %i.fa.fa-list.fa-2x
+                      %a.btn-link{'ng-href' => '/index/{{current_parent.action()}}', style:'margin-left:0.5em', target:'_blank'}
+                        %i.fa.fa-folder-open.fa-2x.swing
 
-              %button.btn-link{'ng-click' => 'setShowChart(true)','ng-show' => 'hasItems'}
-                %i.fa.fa-line-chart.fa-2x
+                      %button.btn-link{'ng-click' => 'setShowChart(false)','ng-show' => 'hasItems'}
+                        %i.fa.fa-list.fa-2x
+
+                      %button.btn-link{'ng-click' => 'setShowChart(true)','ng-show' => 'hasItems'}
+                        %i.fa.fa-line-chart.fa-2x
+
+                      %div{'ng-show' => 'showDescription'}
+                        %q-markdown{data:'current_parent.description'}
+              .row.qapp-category{'ng-show' => 'hasCategories'}
+                .col-sm-4{'ng-repeat' => 'category in categories'}
+                  %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
+                    {{category.name}}
+
+              .row{'ng-show' => 'hasItems && !showChart'}
+                = render partial:'home/section_grid', locals: {div_id:"#{div_id}"}
+
+              .row{'ng-show' => 'hasItems && showChart'}
+                = render partial:'home/section_chart', locals: {div_id:"#{div_id}"}
+
+            .tab-panel{role:'tabpanel', 'ng-hide' => 'tabExploreVisible'}
+              .row
+                .col-md-12
+                  %ol.breadcrumb.text-left
+                    %span{style:'font-size:2em;margin-bottom:6px;display:inline-block'}
+                      Search
+                    .input-group
+                      %input.form-control{id:'search_input', type:'text', 'ng-model' => 'searchText', }
+                      %span.input-group-addon{'ng-click' => 'search()'}
+                        %i.fa.fa-search
+
+              .row{'ng-show' => 'hasResults'}
+                = render partial:'home/search_grid', locals: {div_id:"#{div_id}"}
 
 
-              %div{'ng-show' => 'showDescription'}
-                %q-markdown{data:'current_parent.description'}
 
-      .row.qapp-category{'ng-show' => 'hasCategories'}
-        .col-sm-4{'ng-repeat' => 'category in categories'}
-          %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
-            {{category.name}}
-
-      .row{'ng-show' => 'hasItems && !showChart'}
-        = render partial:'home/section_grid', locals: {div_id:"#{div_id}"}
-
-      .row{'ng-show' => 'hasItems && showChart'}
-        = render partial:'home/section_chart', locals: {div_id:"#{div_id}"}
