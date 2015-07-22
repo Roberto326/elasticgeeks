@@ -39,6 +39,29 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService','
         $scope.reload();
       };
 
+      $scope.goSearch = function() {
+        $scope.tabExploreVisible = false;
+        $scope.$apply();
+      };
+
+      $scope.go1 = function() {
+        $scope.setRoot($scope.category_root, $scope.category_1);
+        $scope.tabExploreVisible = true;
+        $scope.$apply();
+      };
+
+      $scope.go2 = function() {
+        $scope.setRoot($scope.category_root, $scope.category_2);
+        $scope.tabExploreVisible = true;
+        $scope.$apply();
+      };
+
+      $scope.go3 = function() {
+        $scope.setRoot($scope.category_root, $scope.category_3);
+        $scope.tabExploreVisible = true;
+        $scope.$apply();
+      };
+
       $scope.search = function() {
         $scope.results = [];
         if ($scope.searchText) {
@@ -65,7 +88,6 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService','
 
       $scope.showResult = function(category) {
         $scope.seeChildren(category);
-        $('#main_tabs a:first').tab('show');
         $scope.tabExploreVisible = true;
 
         location.hash = "#" + $scope.div_id;

@@ -1,40 +1,48 @@
 - content_for(:header) do
   .box-image{id:'box-image', style:'position:relative'}
-    %div{style:'height:160px'}
+    .top-spacer
     .container.main
+      -#.row
+      -#  .col-md-10.col-md-offset-1.text-center
+      -#    %p.title
+      -#      New Project? Start here:
       .row
-        .col-md-10.col-md-offset-1.text-center
-          %p.title
-            New Project? Start here:
-      .row
-        .col-md-4
+        .col-md-6
           .main-item.sp-effect3
-            %a{href:'#programming', onclick:"$('#dynamic_explorer').children().first().scope()"}
+            %a{href:'#programming', onclick:'QAPP.go1()'}
               %i.fa.fa-cogs
               .subtitle
                 Programming Components
 
-        .col-md-4
+        .col-md-6
           .main-item.sp-effect3
-            %a{href:'#development'}
+            %a{href:'#development', onclick:'QAPP.go2()'}
               %i.fa.fa-connectdevelop
               .subtitle
                 Development Tools
 
-        .col-md-4
+        .col-md-6
           .main-item.sp-effect3
-            %a{href:'#enterprise'}
+            %a{href:'#enterprise', onclick:'QAPP.go3()'}
               %i.fa.fa-university
               .subtitle
                 Enterprise Applications
+
+        .col-md-6
+          .main-item.sp-effect3
+            %a{href:'#search', onclick:'QAPP.goSearch()'}
+              %i.fa.fa-search
+              .subtitle
+                Search
 
       %wrapper
 
   %section{id:'programming', style:'padding:0'}
   %section{id:'development', style:'padding:0'}
   %section{id:'enterprise', style:'padding:0'}
+  %section{id:'search', style:'padding:0'}
 
-  = render partial:'home/section', locals: {div_id:'dynamic_explorer',ng_controller:'PPController', root:Category.find(1), category:Category.find(3) }
+  = render partial:'home/section', locals: {div_id:'dynamic_explorer',ng_controller:'PPController', root:Category.find(1), category_1:Category.find(3), category_2:Category.find(4), category_3:Category.find(2) }
 
   %section{id:'about'}
     .container
@@ -46,3 +54,4 @@
           .col-md-12
             %p
               Elastic Geeks is made up of software development professionals with an average of 20 years of experience developing production level software for ISVs, SaaS providers and enterprises.  The Geeks hold multiple patents for software innovation.
+

@@ -18,15 +18,11 @@
     .navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
         %li
-          %a{:href => '/#dynamic_explorer', rel:'nofollow'} Programming Components
+          %a{:href => '#dynamic_explorer', onclick:'QAPP.go1()', rel:'nofollow'} Explore
         %li
-          %a{:href => '/#development', rel:'nofollow'} Development Tools
+          %a{:href => '#dynamic_explorer', onclick:'QAPP.goSearch()', rel:'nofollow'} Search
         %li
-          %a{:href => '/#enterprise', rel:'nofollow'} Enterprise Applications
-        %li
-          %a{:href => '/#search', rel:'nofollow'} Search
-        %li
-          %a{:href => '/#about', rel:'nofollow'} About
+          %a{:href => '#about', rel:'nofollow'} About
         - if current_user
           %li.dropdown
             %a.dropdown-toggle{href:'#', rel:'nofollow', role:'button', 'data-toggle' => 'dropdown', 'aria-expanded' => 'false'}

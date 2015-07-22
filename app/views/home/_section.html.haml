@@ -1,19 +1,15 @@
 %section{id:"#{div_id}"}
-  .container{'ng-controller' => 'PPController', 'ng-init' => "init(#{root.to_json}, #{category.to_json},'#{div_id}')"}
+  .container{'ng-controller' => 'PPController', 'ng-init' => "init(#{root.to_json}, #{category_1.to_json}, #{category_2.to_json}, #{category_3.to_json},'#{div_id}')"}
     .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
       %h1
-        Explore & Search
-      .divider
-
+        %a{href:'javascript:void(0)', 'ng-click' => 'tabExploreVisible=true'}
+          Explore
+        &
+        %a{href:'javascript:void(0)', 'ng-click' => 'tabExploreVisible=false'}
+          Search
+      %div{style:'height:2em'}
       .row
         .col-md-12
-          %ul.nav.nav-tabs{id:'main_tabs', role:'tablist'}
-            %li.main-tab.active{role:'presentation'}
-              %a{href:'javascript:void(0)', role:'tab', 'data-toggle' => 'tab', 'ng-click' => 'tabExploreVisible=true'}
-                Explore
-            %li.main-tab{role:'presentation'}
-              %a{href:'javascript:void(0)', role:'tab', 'data-toggle' => 'tab', 'ng-click' => 'tabExploreVisible=false'}
-                Search
 
           .tab-content
             .tab-panel{role:'tabpanel', 'ng-show' => 'tabExploreVisible'}

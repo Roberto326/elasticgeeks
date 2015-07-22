@@ -2,6 +2,27 @@ QAPP = {
 
   init: function() {
     this.setupCSRF();
+    this.cats = [];
+  },
+
+  goSearch: function() {
+    var scope = $('#dynamic_explorer').children().first().scope();
+    scope.goSearch();
+  },
+
+  go1: function() {
+    var scope = $('#dynamic_explorer').children().first().scope();
+    scope.go1();
+  },
+
+  go2: function() {
+    var scope = $('#dynamic_explorer').children().first().scope();
+    scope.go2();
+  },
+
+  go3: function() {
+    var scope = $('#dynamic_explorer').children().first().scope();
+    scope.go3();
   },
 
   error: function(message) {
