@@ -46,18 +46,33 @@ SQL
     count = query.count
     results = []
     query.each do |rec|
-      results << {
-        name:                   rec[ 1],
-        type:                   rec[ 2],
-        id:                     rec[ 3],
-        item_id:                rec[ 4],
-        category_1_id:          rec[ 5] || rec[11],
-        category_1_name:        rec[ 6] || rec[12],
-        category_1_description: rec[ 7] || rec[13],
-        category_2_id:          rec[ 8],
-        category_2_name:        rec[ 9],
-        category_2_description: rec[10]
-      }
+      if rec[2] == 'Item'
+        results << {
+          name:                     rec[ 1],
+          type:                     rec[ 2],
+          id:                       rec[ 3],
+          item_id:                  rec[ 4],
+          sub_category_id:          rec[ 5],
+          sub_category_name:        rec[ 6],
+          sub_category_description: rec[ 7],
+          base_category_id:         rec[ 8],
+          base_category_name:       rec[ 9],
+          base_category_description:rec[10]
+        }
+      else
+        results << {
+          name:                     rec[ 1],
+          type:                     rec[ 2],
+          id:                       rec[ 3],
+          item_id:                  rec[ 4],
+          sub_category_id:          rec[ 5] || rec[3],
+          sub_category_name:        rec[ 6] || rec[1],
+          sub_category_description: rec[ 7],
+          base_category_id:         rec[11],
+          base_category_name:       rec[12],
+          base_category_description:rec[13]
+        }
+      end
     end
     render json: {count:count, results:results}
   end

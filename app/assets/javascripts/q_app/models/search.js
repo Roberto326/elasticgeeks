@@ -9,8 +9,8 @@ app.factory('Search', ['Category',
       this.name             = json.name            || null;
       this.type             = json.type            || null;
       this.item_id          = json.item_id         || null;
-      this.category_1       = new Category({id:json.category_1_id, name:json.category_1_name, description:json.category_1_description});
-      this.category_2       = new Category({id:json.category_2_id, name:json.category_2_name, description:json.category_2_description});
+      this.sub_category     = new Category({id:json.sub_category_id, name:json.sub_category_name, description:json.sub_category_description});
+      this.base_category    = new Category({id:json.base_category_id, name:json.base_category_name, description:json.base_category_description});
     };
 
     Search.prototype = {

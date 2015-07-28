@@ -1,22 +1,29 @@
 %section{id:"#{div_id}"}
-  .container{'ng-controller' => 'PPController', 'ng-init' => "init(#{root.to_json}, #{category_1.to_json}, #{category_2.to_json}, #{category_3.to_json},'#{div_id}')"}
+  .container{'ng-controller' => 'PPController', 'ng-init' => "init(#{root.to_json}, #{category_1.to_json}, #{category_2.to_json}, #{category_3.to_json}, #{category_1.to_json}, '#{div_id}')"}
     .section-heading.scrollpoint.sp-effect3.active.animated.fadeInDown
       %h1
-        %a{href:'javascript:void(0)', 'ng-click' => 'tabExploreVisible=true'}
-          Explore
+        Explore
         &
-        %a{href:'javascript:void(0)', 'ng-click' => 'tabExploreVisible=false'}
-          Search
+        Search
       %div{style:'height:2em'}
       .row
         .col-md-12
-
+          .btn-group.btn-group-justified
+            %a.btn.btn-primary{href:'#dynamic_explorer', onclick:'QAPP.go1()'}
+              {{category_1.name}}
+            %a.btn.btn-primary{href:'#dynamic_explorer', onclick:'QAPP.go2()'}
+              {{category_2.name}}
+            %a.btn.btn-primary{href:'#dynamic_explorer', onclick:'QAPP.go3()'}
+              {{category_3.name}}
+            %a.btn.btn-primary{href:'#dynamic_explorer', onclick:'QAPP.goSearch()'}
+              Search
           .tab-content
             .tab-panel{role:'tabpanel', 'ng-show' => 'tabExploreVisible'}
               .row
                 .col-md-12
                   %ol.breadcrumb.text-left
-                    %li{'ng-repeat' => 'parent in parents'}
+
+                    %li{'ng-repeat' => 'parent in visibleParents'}
                       %button.btn.btn-link{'ng-click' => 'seeChildren(parent)'}
                         {{parent.name}}
                     %div
@@ -37,6 +44,7 @@
 
                       %div{'ng-show' => 'showDescription'}
                         %q-markdown{data:'current_parent.description'}
+
               .row.qapp-category{'ng-show' => 'hasCategories'}
                 .col-sm-4{'ng-repeat' => 'category in categories'}
                   %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
@@ -52,8 +60,9 @@
               .row
                 .col-md-12
                   %ol.breadcrumb.text-left
-                    %span{style:'font-size:2em;margin-bottom:6px;display:inline-block'}
-                      Search
+                    %li
+                      %span.btn.btn-link
+                        Search
                     .input-group
                       %input.form-control{id:'search_input', type:'text', 'ng-model' => 'searchText', }
                       %span.input-group-addon{'ng-click' => 'search()'}

@@ -1,4 +1,4 @@
-.container{'ng-controller' => 'PPController', 'ng-init' => "init(#{@category.to_json},'#{@category.name.parameterize}', true)"}
+.container{'ng-controller' => 'PPController', 'ng-init' => "init(#{@root.to_json},#{@category_1.to_json},#{@category_2.to_json},#{@category_3.to_json},#{@category.to_json},'#{@category.name.parameterize}', true)"}
   .row.col-md-12
     %h1
       - if @category.parent

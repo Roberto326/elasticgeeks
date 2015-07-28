@@ -43,6 +43,10 @@ table.qapp-item {
         }
       }
     }
+    tr.selected {
+      font-style: italic;
+      background-color: aliceblue;
+    }
   }
 }
 

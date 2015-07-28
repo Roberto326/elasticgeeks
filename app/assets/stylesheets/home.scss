@@ -1,10 +1,13 @@
 .main {
   .title {
-    color: #ffffff;
+//    color: #ffffff;
     font-size: 2em;
     font-weight: bold;
-    text-shadow: 2px 2px 0px #111;
-    margin: 20px 0;
+//    text-shadow: 2px 2px 0px #111;
+  }
+
+  .category-link {
+    width:33%;
   }
 
   .main-item {
@@ -38,7 +41,7 @@
     }
     .subtitle {
       font-size: 2em;
-      margin: 10px 0 8px 0;
+      margin: 10px 0px 8px 0;
       padding: 10px 0;
       color: #ffffff;
       text-shadow: 2px 2px 0px #111;
@@ -63,8 +66,8 @@
 @media (min-width: 992px) {
   .main {
     .title{
-      font-size:4em;
-      margin: 60px 0;
+      font-size:3.5em;
+      padding-bottom:20px;
     }
     .main-item {
       i.fa {
@@ -75,7 +78,7 @@
       }
       .subtitle {
         font-size: 2em;
-        margin: 20px 0 16px 0;
+        margin: 20px 40px 16px 40px;
         padding: 20px 0;
       }
     }

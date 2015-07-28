@@ -15,7 +15,7 @@
         License(s)
       %th{'ng-repeat' => '(field,type) in current_parent.fields_def'}
         {{field.camelize(true)}}
-    %tr{'ng-repeat' => 'item in items'}
+    %tr{'ng-repeat' => 'item in items', 'ng-class' => '{selected: item.id==selectedItemId}'}
       %td.text-left
         {{item.name}}
 

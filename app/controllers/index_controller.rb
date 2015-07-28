@@ -7,6 +7,11 @@ class IndexController < ApplicationController
     p2 = params[:p2].to_s.titleize
     p3 = params[:p3].to_s.titleize
 
+    @root       = Category.find(1)
+    @category_1 = Category.find(2)
+    @category_2 = Category.find(3)
+    @category_3 = Category.find(4)
+
     @category = nil
     @category = Category.find_by_name(p1) if p1.present?
     @category = @category.sub_categories.find_by_name(p2) if p2.present?

@@ -10,10 +10,17 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService','
       $scope.PP   = {id:2, name:'Programming Platforms'};
       $scope.DT   = {id:3, name:'Development Tools'};
 
+      $scope.category_root  = null;
+      $scope.category_1     = null;
+      $scope.category_2     = null;
+      $scope.category_3     = null;
+      $scope.selectedItemId = null;
+
       $scope.div_id = null;
 
       $scope.current_parent = null;
       $scope.parents = [];
+      $scope.visibleParents = [];
       $scope.categories = [];
       $scope.categoriesIn3s = [];
       $scope.items = [];
@@ -62,6 +69,10 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService','
         $scope.$apply();
       };
 
+      $scope.getParents = function() {
+        $scope.parents.slice(1,999);
+      };
+
       $scope.search = function() {
         $scope.results = [];
         if ($scope.searchText) {
@@ -74,7 +85,6 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService','
 
       $('#search_input').keyup(function(eventData){
         eventData.stopPropagation();
-        console.log($scope.searchText);
         if (eventData.keyCode == 27) {
           $scope.searchText = '';
           $scope.$digest();
@@ -86,8 +96,20 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService','
         }
       });
 
-      $scope.showResult = function(category) {
-        $scope.seeChildren(category);
+      $scope.showResult = function(base_category, sub_category, item_id) {
+
+        $scope.parents = [];
+        $scope.setCurrentParent($scope.category_root);
+
+        if (base_category) $scope.setCurrentParent(base_category);
+        if (sub_category) $scope.setCurrentParent(sub_category);
+        if (item_id) {
+          $scope.selectedItemId = item_id;
+        } else {
+          $scope.selectedItemId = null;
+        }
+        $scope.reload();
+
         $scope.tabExploreVisible = true;
 
         location.hash = "#" + $scope.div_id;
@@ -184,9 +206,10 @@ app.service('CategoriesControllerService', ['CategoriesService','ItemsService','
         if (idx > -1) {
           $scope.parents = $scope.parents.slice(0, idx+1);
         } else {
-          //$scope.parents.push({id: category.id, name:category.name});
           $scope.parents.push(category);
         }
+
+        $scope.visibleParents = $scope.parents.slice(1,999);
 
         $scope.clearChart();
         $scope.showChart = false;
