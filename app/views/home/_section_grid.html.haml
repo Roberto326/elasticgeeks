@@ -9,11 +9,11 @@
         Trend
       %th{style:'width:2em'}
         Links
-      %th
+      %th.hidden-xs
         Platform(s)
-      %th
+      %th.hidden-xs
         License(s)
-      %th{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+      %th.hidden-xs{'ng-repeat' => '(field,type) in current_parent.fields_def'}
         {{field.camelize(true)}}
     %tr{'ng-repeat' => 'item in items', 'ng-class' => '{selected: item.id==selectedItemId}'}
       %td.text-left
@@ -36,10 +36,10 @@
           %i.fa.fa-external-link
         %a{href:"http://en.wikipedia.org/wiki/{{item.wiki_name}}", rel:'nofollow', target:'_blank', 'ng-show' => 'item.wiki_name', style:'font-family: Timew New Roman; text-decoration:none; margin-left:4px'}
           W
-      %td.text-left
+      %td.text-left.hidden-xs
         {{item.platform_names}}
-      %td.text-left
+      %td.text-left.hidden-xs
         {{item.license_names}}
-      %td.text-left{'ng-repeat' => '(field,type) in current_parent.fields_def'}
+      %td.text-left.hidden-xs{'ng-repeat' => '(field,type) in current_parent.fields_def'}
         {{item.fields[field]}}
 

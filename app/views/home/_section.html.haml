@@ -10,13 +10,21 @@
         .col-md-12
           .btn-group.btn-group-justified
             %a.btn.btn-primary{href:'#dynamic_explorer', onclick:'QAPP.go1()'}
-              {{category_1.name}}
+              %i.fa.fa-cogs
+              %span.hidden-xs
+                {{category_1.name}}
             %a.btn.btn-primary{href:'#dynamic_explorer', onclick:'QAPP.go2()'}
-              {{category_2.name}}
+              %i.fa.fa-connectdevelop
+              %span.hidden-xs
+                {{category_2.name}}
             %a.btn.btn-primary{href:'#dynamic_explorer', onclick:'QAPP.go3()'}
-              {{category_3.name}}
+              %i.fa.fa-university
+              %span.hidden-xs
+                {{category_3.name}}
             %a.btn.btn-primary{href:'#dynamic_explorer', onclick:'QAPP.goSearch()'}
-              Search
+              %i.fa.fa-search
+              %span.hidden-xs
+                Search
           .tab-content
             .tab-panel{role:'tabpanel', 'ng-show' => 'tabExploreVisible'}
               .row
@@ -46,7 +54,7 @@
                         %q-markdown{data:'current_parent.description'}
 
               .row.qapp-category{'ng-show' => 'hasCategories'}
-                .col-sm-4{'ng-repeat' => 'category in categories'}
+                .col-xs-6.col-sm-4{'ng-repeat' => 'category in categories'}
                   %button.btn.btn-link{'ng-click' => 'seeChildren(category)'}
                     {{category.name}}
 

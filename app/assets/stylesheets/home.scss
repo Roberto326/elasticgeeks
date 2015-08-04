@@ -3,6 +3,7 @@
 //    color: #ffffff;
     font-size: 2em;
     font-weight: bold;
+    padding-bottom: 20px;
 //    text-shadow: 2px 2px 0px #111;
   }
 
@@ -40,7 +41,7 @@
       background: rgba(0,0,0,0.7)
     }
     .subtitle {
-      font-size: 2em;
+      font-size: 1.6em;
       margin: 10px 0px 8px 0;
       padding: 10px 0;
       color: #ffffff;
@@ -64,6 +65,11 @@
 }
 
 @media (min-width: 992px) {
+
+  .top-spacer{
+    height:100px;
+  }
+
   .main {
     .title{
       font-size:3.5em;
