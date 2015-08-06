@@ -17,7 +17,8 @@
         {{field.camelize(true)}}
     %tr{'ng-repeat' => 'item in items', 'ng-class' => '{selected: item.id==selectedItemId}'}
       %td.text-left
-        {{item.name}}
+        %a{href:"{{item.website}}", rel:'nofollow', target:'_blank', 'ng-show' => 'item.website'}
+          {{item.name}}
 
       %td.text-left{style:'position:relative'}
         %div.rank-number
