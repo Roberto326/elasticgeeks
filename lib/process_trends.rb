@@ -1,5 +1,6 @@
 require 'csv'
 require 'open-uri'
+require 'uri'
 
 class ProcessTrends
 
@@ -34,6 +35,7 @@ class ProcessTrends
     CSV.new(csv_data, { :headers => true, :skip_lines => '^#'}).each do |csv_row|
 
       row = csv_row.to_hash
+      next if row.empty?	
 
       if first
         row.keys.each_with_index do |c, index|
@@ -85,6 +87,8 @@ class ProcessTrends
 
       rescue => e
         puts e.message
+        puts row 
+        puts e.backtrace
       end
     end
 
@@ -137,8 +141,14 @@ class ProcessTrends
 
       scores = TrendDetail.where(category_id:category_id, item_id:item_id).order('date desc').pluck(:score)
 
-      scores_now  = scores.slice( 0,12).reject{|item| item == 0}
-      scores_year = scores.slice(12,12).reject{|item| item == 0}
+      scores_now = nil
+      scores_year = nil
+
+      begin
+        scores_now  = scores.slice( 0,12).reject{|item| item == 0}
+        scores_year = scores.slice(12,12).reject{|item| item == 0}
+      rescue => e
+      end
 
       record = {
         item_id:  item_id,
@@ -195,8 +205,8 @@ class ProcessTrends
       if data_item[:avg_now] > 0 && data_item[:avg_year] > 0
         factor = data_item[:avg_now] / data_item[:avg_year].to_f
 
-        puts data_item[:item_id]
-        puts factor
+        #puts data_item[:item_id]
+        #puts factor
 
         if factor >= 1.5
           trend = 3
@@ -310,16 +320,45 @@ class ProcessTrends
 
     # url = "http://www.wikipediatrends.com/csv.php?query[]=Apache+Tomcat&query[]=IIS"
     url = 'http://www.wikipediatrends.com/csv.php?'
+    newUrls = []
 
     url += category.items.map do |item|
 
       search = aliases[item.id][:wiki_name]
       next if search.blank?
 
+      escapedSearch = CGI::escape(search).gsub(/\+/,'%20')
+
+      newUrls << "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/#{escapedSearch}/daily/2015080100/2029123100"	
+
       "query[]=#{CGI::escape(search)}"
     end.join('&')
 
-    content = open(url).read
+    content = open(url,).read
+
+
+    # Read new Wikimedia contents
+    newData = {}
+    newUrls.each do |newUrl|
+      begin
+        data = open(newUrl,:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE).read
+        jsonData = JSON.parse(data)
+        jsonData['items'].each do |item|
+          itemDate = item['timestamp'][0,4]+'/'+item['timestamp'][4,2]+'/'+item['timestamp'][6,2]
+          newData[itemDate] = [] unless newData[itemDate]
+          newData[itemDate] << item['views']
+        end
+      rescue => e
+        puts newUrl 
+        puts e.message  
+      end
+    end
+
+    newData.each do |key,value|
+      line = "\""+key+"\"" + ' ,' + value.join(', ')
+      content += "\n" + line 
+    end
+
     content
   end
 
